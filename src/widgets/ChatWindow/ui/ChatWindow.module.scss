@@ -1,0 +1,27 @@
+@use '@shared/styles' as *;
+
+.header {
+	display: flex;
+	align-items: center;
+	gap: $space-3;
+	height: $header-height;
+	padding: 0 $space-4;
+	background: var(--color-bg-primary);
+	border-bottom: 1px solid var(--color-divider);
+}
+
+.title {
+	margin: 0;
+	font-size: $font-body;
+	font-weight: 500;
+}
+
+// Стрелка «назад к списку» нужна только там, где список чатов скрыт
+.back {
+	display: none;
+	flex: none;
+
+	@include narrow {
+		display: inline-flex;
+	}
+}

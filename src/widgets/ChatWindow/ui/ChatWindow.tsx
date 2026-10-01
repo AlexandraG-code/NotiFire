@@ -10,7 +10,7 @@ import { ChatAvatar } from '@entities/Chat'
 import { AppRoute } from '@shared/config'
 import { ChatBackground } from '@shared/ui'
 
-import styles from './ChatWindow.module.css'
+import styles from './ChatWindow.module.scss'
 import { MessageList } from './MessageList'
 import type { ChatWindowProps } from './types'
 

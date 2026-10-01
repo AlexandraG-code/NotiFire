@@ -1,0 +1,36 @@
+@use 'functions' as *;
+
+// Шкала отступов
+$space-1: rem(4);
+$space-2: rem(8);
+$space-3: rem(12);
+$space-4: rem(16);
+$space-6: rem(24);
+$space-8: rem(32);
+
+// Скругления
+$radius-md: rem(16);
+$radius-lg: rem(24);
+$radius-modal: rem(32);
+
+// Размеры шрифта (значения сняты с web.max.ru)
+$font-caption: rem(12);
+$font-meta: rem(13);
+$font-small: rem(14);
+$font-body: rem(15);
+$font-text: rem(16);
+$font-title: rem(20);
+$font-heading: rem(24);
+
+// Размеры блоков
+$control-height: rem(52);
+$header-height: rem(64);
+$sidebar-width: rem(400);
+$auth-card-width: rem(360);
+$content-max-width: rem(720);
+
+// Ширина окна, ниже которой показывается что-то одно: список чатов или диалог (в px, для медиазапроса)
+$breakpoint-narrow: 900px;
+
+// Длительность быстрых переходов (ховер)
+$transition-fast: 0.15s;

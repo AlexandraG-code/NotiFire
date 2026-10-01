@@ -1,6 +1,6 @@
 import { Avatar } from 'antd'
 
-import styles from './ChatAvatar.module.css'
+import styles from './ChatAvatar.module.scss'
 import type { ChatAvatarProps } from './types'
 
 const DEFAULT_SIZE = 56

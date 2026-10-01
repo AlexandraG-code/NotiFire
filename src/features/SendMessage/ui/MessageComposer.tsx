@@ -4,7 +4,7 @@ import { type KeyboardEvent, useState } from 'react'
 
 import { Button, Input } from 'antd'
 
-import styles from './MessageComposer.module.css'
+import styles from './MessageComposer.module.scss'
 import type { MessageComposerProps } from './types'
 
 const MAX_ROWS = 6

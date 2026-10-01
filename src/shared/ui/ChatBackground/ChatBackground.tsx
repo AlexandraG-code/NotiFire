@@ -1,4 +1,4 @@
-import styles from './ChatBackground.module.css'
+import styles from './ChatBackground.module.scss'
 import type { ChatBackgroundProps } from './types'
 
 /**

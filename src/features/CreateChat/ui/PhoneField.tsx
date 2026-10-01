@@ -2,7 +2,7 @@ import { Form, Input, Select } from 'antd'
 
 import { COUNTRIES } from '../model/countries'
 
-import styles from './PhoneField.module.css'
+import styles from './PhoneField.module.scss'
 
 const COUNTRY_OPTIONS = COUNTRIES.map(({ code, flag, name, dial }) => ({
 	value: code,

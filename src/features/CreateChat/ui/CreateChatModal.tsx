@@ -9,7 +9,7 @@ import { AppRoute } from '@shared/config'
 import { DEFAULT_COUNTRY } from '../model/countries'
 import { useCreateChatHelpers } from '../model/useCreateChatHelpers'
 
-import styles from './CreateChatModal.module.css'
+import styles from './CreateChatModal.module.scss'
 import { PhoneField } from './PhoneField'
 import type { CreateChatFormValues, CreateChatModalProps } from './types'
 

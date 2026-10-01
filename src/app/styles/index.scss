@@ -21,7 +21,7 @@ body {
 	min-height: 100svh;
 }
 
-/* Смена темы: новый снимок рисуется поверх старого, круг задаётся анимацией в runThemeTransition */
+// Смена темы: новый снимок рисуется поверх старого, круг задаётся анимацией в runThemeTransition
 ::view-transition-old(root),
 ::view-transition-new(root) {
 	mix-blend-mode: normal;

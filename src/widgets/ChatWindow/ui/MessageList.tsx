@@ -8,7 +8,7 @@ import { formatDay } from '@shared/lib'
 import { getBubblePosition } from '../lib/getBubblePosition'
 import { groupMessagesByDay } from '../lib/groupMessagesByDay'
 
-import styles from './MessageList.module.css'
+import styles from './MessageList.module.scss'
 import type { MessageListProps } from './types'
 
 const NO_MESSAGES: Message[] = []

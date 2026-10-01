@@ -1,18 +1,20 @@
+@use '@shared/styles' as *;
+
 .trigger {
 	display: flex;
 	align-items: center;
-	gap: 12px;
+	gap: $space-3;
 	width: 100%;
-	padding: 14px 16px;
-	font-size: 15px;
+	padding: $space-3 $space-4;
+	font-size: $font-body;
 	color: var(--color-text-secondary);
 	text-align: left;
 	cursor: pointer;
 	background: transparent;
 	border: none;
 	border-top: 1px solid var(--color-divider);
-}
 
-.trigger:hover {
-	background: var(--color-bg-secondary);
+	&:hover {
+		background: var(--color-bg-secondary);
+	}
 }

@@ -1,0 +1,15 @@
+@use '@shared/styles' as *;
+
+.submit {
+	height: $control-height;
+	margin-top: $space-2;
+	font-size: $font-text;
+	font-weight: 500;
+	border-radius: $radius-md;
+
+	&:disabled {
+		color: #fff;
+		background: color-mix(in srgb, var(--color-accent) 40%, transparent);
+		border-color: transparent;
+	}
+}

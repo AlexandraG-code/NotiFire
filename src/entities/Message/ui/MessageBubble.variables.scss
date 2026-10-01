@@ -1,0 +1,12 @@
+@use '@shared/styles' as *;
+
+// Геометрия пузыря снята с web.max.ru
+$bubble-radius: $radius-md;
+$bubble-radius-tight: rem(6); // углы, которыми соседние пузыри серии «касаются» друг друга
+$bubble-padding: rem(8) rem(10) rem(10);
+$bubble-gap-x: rem(10); // между текстом и временем
+$bubble-max-width: rem(520);
+$bubble-line-height: rem(20);
+$meta-line-height: rem(16);
+$row-padding: rem(1);
+$series-gap: rem(6); // отступ над первым пузырём серии

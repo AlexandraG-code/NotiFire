@@ -1,7 +1,7 @@
 import { AuthForm } from '@features/Auth'
 import { ThemeSwitch } from '@features/Theme'
 
-import styles from './AuthPage.module.css'
+import styles from './AuthPage.module.scss'
 
 /**
  * Страница входа: карточка с формой и переключатель темы.

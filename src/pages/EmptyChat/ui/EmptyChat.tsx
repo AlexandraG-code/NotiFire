@@ -1,6 +1,6 @@
 import { ChatBackground } from '@shared/ui'
 
-import styles from './EmptyChat.module.css'
+import styles from './EmptyChat.module.scss'
 
 /**
  * Заглушка, пока чат не выбран.

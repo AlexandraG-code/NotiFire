@@ -5,7 +5,7 @@ import { ChatAvatar } from '@entities/Chat'
 import { AppRoute } from '@shared/config'
 import { formatTime } from '@shared/lib'
 
-import styles from './ChatListItem.module.css'
+import styles from './ChatListItem.module.scss'
 import type { ChatListItemProps } from './types'
 
 /**

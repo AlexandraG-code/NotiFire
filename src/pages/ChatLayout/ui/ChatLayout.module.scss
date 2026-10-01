@@ -1,3 +1,5 @@
+@use '@shared/styles' as *;
+
 .layout {
 	display: flex;
 	height: 100svh;
@@ -6,7 +8,7 @@
 .sidebarPane {
 	display: flex;
 	flex: none;
-	width: 400px;
+	width: $sidebar-width;
 }
 
 .contentPane {
@@ -15,8 +17,8 @@
 	min-width: 0;
 }
 
-/* Узкое окно: показывается что-то одно — список чатов (/) или диалог (/chat/:id). Порог 900px общий с ChatWindow.module.css */
-@media (max-width: 900px) {
+// Узкое окно: показывается что-то одно — список чатов (/) или диалог (/chat/:id)
+@include narrow {
 	.sidebarPane {
 		width: 100%;
 	}

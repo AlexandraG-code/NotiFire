@@ -10,7 +10,7 @@ import { useChatStore } from '@entities/Chat'
 import { useMessageStore } from '@entities/Message'
 
 import { ChatListItem } from './ChatListItem'
-import styles from './ChatSidebar.module.css'
+import styles from './ChatSidebar.module.scss'
 import { SettingsMenu } from './SettingsMenu'
 
 /**

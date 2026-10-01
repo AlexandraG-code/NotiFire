@@ -1,0 +1,35 @@
+@use '@shared/styles' as *;
+@use './PhoneField.variables' as *;
+
+.field {
+	display: flex;
+	align-items: center;
+	height: $control-height;
+	background: var(--color-bg-secondary);
+	border-radius: $radius-md;
+
+	// без кольца фокуса: как у MAX, поле составное и подсветки не имеет
+	:focus,
+	:focus-visible {
+		outline: none;
+		box-shadow: none;
+	}
+}
+
+.select {
+	flex: none;
+	min-width: $country-select-min-width;
+	height: 100%;
+}
+
+.number {
+	flex: 1;
+	height: 100%;
+	font-size: $font-text;
+	background: transparent;
+
+	&,
+	&:focus-within {
+		box-shadow: none;
+	}
+}

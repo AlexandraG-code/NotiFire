@@ -7,7 +7,7 @@ import { useNotificationPolling } from '@features/ReceiveMessages'
 
 import { AppRoute } from '@shared/config'
 
-import styles from './ChatLayout.module.css'
+import styles from './ChatLayout.module.scss'
 
 /**
  * Каркас чата: боковая панель слева, выбранный диалог справа. В узком окне показывает что-то одно: список чатов или диалог.

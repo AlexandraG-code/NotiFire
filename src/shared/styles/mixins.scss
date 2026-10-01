@@ -1,0 +1,14 @@
+@use 'variables' as *;
+
+/// Стили для узкого окна (до `$breakpoint-narrow`): единый порог для всех компонентов.
+@mixin narrow {
+	@media (max-width: $breakpoint-narrow) {
+		@content;
+	}
+}
+
+/// Горизонтальные поля, которые удерживают контент по центру колонки шириной не больше `$content-max-width`.
+/// Нужны ленте сообщений и полю ввода, чтобы их края совпадали.
+@mixin content-column {
+	padding-inline: max(#{$space-4}, calc((100% - #{$content-max-width}) / 2));
+}

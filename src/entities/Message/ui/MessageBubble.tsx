@@ -4,7 +4,7 @@ import { formatTime } from '@shared/lib'
 
 import { BubblePosition, MessageDirection, MessageStatus } from '../model/enums'
 
-import styles from './MessageBubble.module.css'
+import styles from './MessageBubble.module.scss'
 import type { MessageBubbleProps } from './types'
 
 /**

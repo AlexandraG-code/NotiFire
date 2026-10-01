@@ -1,0 +1,32 @@
+@use '@shared/styles' as *;
+@use './MessageComposer.variables' as *;
+
+.composer {
+	@include content-column;
+
+	padding-bottom: $space-4;
+}
+
+.pill {
+	display: flex;
+	align-items: flex-end;
+	gap: $space-2;
+	padding: $pill-padding $pill-padding $pill-padding $space-4;
+	background: var(--color-bg-elevated);
+	border-radius: $radius-lg;
+}
+
+.input {
+	flex: 1;
+	padding: $pill-padding 0;
+	border: none;
+	background: transparent;
+	box-shadow: none;
+	font-size: $font-text;
+
+	&:focus,
+	&:focus-visible {
+		outline: none;
+		box-shadow: none;
+	}
+}

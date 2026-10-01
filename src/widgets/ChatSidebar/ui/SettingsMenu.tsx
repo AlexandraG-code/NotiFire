@@ -7,7 +7,7 @@ import { useThemeStore, useThemeToggle } from '@features/Theme'
 
 import { ThemeMode } from '@shared/theme'
 
-import styles from './SettingsMenu.module.css'
+import styles from './SettingsMenu.module.scss'
 
 /**
  * Меню настроек внизу сайдбара: переключение темы и выход.

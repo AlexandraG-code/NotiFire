@@ -1,0 +1,108 @@
+@use '@shared/styles' as *;
+@use './MessageBubble.variables' as *;
+
+.row {
+	display: flex;
+	padding: $row-padding 0;
+}
+
+.rowOutgoing {
+	justify-content: flex-end;
+}
+
+.bubble {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-end;
+	justify-content: flex-end;
+	gap: $space-1 $bubble-gap-x;
+	max-width: min(75%, #{$bubble-max-width});
+	padding: $bubble-padding;
+	border-radius: $bubble-radius;
+	font-size: $font-text;
+	line-height: $bubble-line-height;
+}
+
+.incoming {
+	color: var(--color-bubble-in-text);
+	background: var(--color-bubble-in-bg);
+}
+
+.outgoing {
+	color: var(--color-bubble-own-text);
+	background: var(--color-bubble-own-bg);
+}
+
+.text {
+	flex: 1 1 auto;
+	min-width: 0;
+	white-space: pre-wrap;
+	overflow-wrap: anywhere;
+}
+
+.meta {
+	display: inline-flex;
+	flex: none;
+	align-items: center;
+	gap: $space-1;
+	font-size: $font-caption;
+	line-height: $meta-line-height;
+}
+
+.retry {
+	padding: 0;
+	font-size: $font-caption;
+	color: inherit;
+	text-decoration: underline;
+	cursor: pointer;
+	background: none;
+	border: none;
+}
+
+.incoming .meta {
+	color: var(--color-bubble-in-time);
+}
+
+.outgoing .meta {
+	color: var(--color-bubble-own-time);
+}
+
+// Положение в серии задаёт класс на .row, поэтому правила идут от него к вложенному пузырю.
+// Соседние углы между пузырями малые, внешние — большие; над серией добавляется отступ.
+.single {
+	margin-top: $series-gap;
+}
+
+.upper {
+	margin-top: $series-gap;
+
+	.outgoing {
+		border-bottom-right-radius: $bubble-radius-tight;
+	}
+
+	.incoming {
+		border-bottom-left-radius: $bubble-radius-tight;
+	}
+}
+
+.middle {
+	.outgoing {
+		border-top-right-radius: $bubble-radius-tight;
+		border-bottom-right-radius: $bubble-radius-tight;
+	}
+
+	.incoming {
+		border-top-left-radius: $bubble-radius-tight;
+		border-bottom-left-radius: $bubble-radius-tight;
+	}
+}
+
+.bottom {
+	.outgoing {
+		border-top-right-radius: $bubble-radius-tight;
+	}
+
+	.incoming {
+		border-top-left-radius: $bubble-radius-tight;
+	}
+}
