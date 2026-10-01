@@ -1,0 +1,20 @@
+.background {
+	position: relative;
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	min-width: 0;
+	isolation: isolate;
+	background: var(--color-chat-background);
+}
+
+.background::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	pointer-events: none;
+	background: var(--color-chat-pattern);
+	mask-image: url('../../assets/chat-pattern.svg');
+	mask-repeat: repeat;
+}
