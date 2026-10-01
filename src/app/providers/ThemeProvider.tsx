@@ -1,6 +1,6 @@
 import { type PropsWithChildren, useLayoutEffect, useMemo } from 'react'
 
-import { ConfigProvider } from 'antd'
+import { App as AntdApp, ConfigProvider } from 'antd'
 
 import { useThemeStore } from '@features/Theme'
 
@@ -8,6 +8,7 @@ import { applyThemeVars, getAntdTheme } from '@shared/theme'
 
 /**
  * Применяет выбранную тему: токены antd и CSS-переменные для собственных стилей.
+ * Оборачивает приложение в antd App, чтобы уведомления (notification) подхватывали тему.
  * @param {ReactNode} children - Содержимое приложения
  * @returns {JSX.Element} Провайдер темы antd
  */
@@ -17,5 +18,9 @@ export const ThemeProvider = ({ children }: PropsWithChildren) => {
 
 	useLayoutEffect(() => applyThemeVars(mode), [mode])
 
-	return <ConfigProvider theme={antdTheme}>{children}</ConfigProvider>
+	return (
+		<ConfigProvider theme={antdTheme}>
+			<AntdApp>{children}</AntdApp>
+		</ConfigProvider>
+	)
 }

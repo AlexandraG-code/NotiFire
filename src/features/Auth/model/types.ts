@@ -6,7 +6,7 @@ export interface AuthState {
 }
 
 export interface AuthActions {
-	/** Проверяет креды и сохраняет их в сторе; бросает AuthError. */
+	/** Проверяет креды и сохраняет их в сторе; бросает Error с текстом для пользователя. */
 	login: (credentials: GreenApiCredentials) => Promise<void>
 	logout: () => void
 }

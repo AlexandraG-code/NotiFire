@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { Alert, Button, Form, Input } from 'antd'
+import { App, Button, Form, Input } from 'antd'
 import { useNavigate } from 'react-router-dom'
 
 import type { GreenApiCredentials } from '@shared/api/greenApi'
@@ -17,16 +17,18 @@ export const AuthForm = () => {
 	const login = useAuthStore((state) => state.login)
 	const navigate = useNavigate()
 	const [loading, setLoading] = useState(false)
-	const [error, setError] = useState<string | null>(null)
+	const { notification } = App.useApp()
 
 	const onFinish = async (values: GreenApiCredentials) => {
 		setLoading(true)
-		setError(null)
 		try {
 			await login({ idInstance: values.idInstance.trim(), apiTokenInstance: values.apiTokenInstance.trim() })
 			navigate(AppRoute.Root, { replace: true })
 		} catch (e) {
-			setError(e instanceof Error ? e.message : 'Ошибка входа')
+			notification.error({
+				message: 'Не удалось войти',
+				description: e instanceof Error ? e.message : undefined
+			})
 		} finally {
 			setLoading(false)
 		}
@@ -34,7 +36,6 @@ export const AuthForm = () => {
 
 	return (
 		<Form form={form} layout="vertical" onFinish={onFinish} requiredMark={false}>
-			{error && <Alert type="error" message={error} showIcon style={{ marginBottom: 16 }} />}
 			<Form.Item
 				name="idInstance"
 				label="idInstance"
