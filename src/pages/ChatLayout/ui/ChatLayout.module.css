@@ -1,0 +1,28 @@
+.layout {
+	display: flex;
+	height: 100svh;
+}
+
+.sidebarPane {
+	display: flex;
+	flex: none;
+	width: 400px;
+}
+
+.contentPane {
+	display: flex;
+	flex: 1;
+	min-width: 0;
+}
+
+/* Узкое окно: показывается что-то одно — список чатов (/) или диалог (/chat/:id). Порог 900px общий с ChatWindow.module.css */
+@media (max-width: 900px) {
+	.sidebarPane {
+		width: 100%;
+	}
+
+	.layout[data-chat-open='true'] .sidebarPane,
+	.layout[data-chat-open='false'] .contentPane {
+		display: none;
+	}
+}

@@ -1,0 +1,27 @@
+.header {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	height: 64px;
+	padding: 0 16px;
+	background: var(--color-bg-primary);
+	border-bottom: 1px solid var(--color-divider);
+}
+
+.title {
+	margin: 0;
+	font-size: 15px;
+	font-weight: 500;
+}
+
+.back {
+	display: none;
+	flex: none;
+}
+
+/* Порог 900px общий с ChatLayout.module.css */
+@media (max-width: 900px) {
+	.back {
+		display: inline-flex;
+	}
+}
