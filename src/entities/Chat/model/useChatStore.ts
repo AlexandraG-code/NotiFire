@@ -2,10 +2,24 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
 import { CHAT_STORAGE_KEY, CHAT_STORAGE_VERSION } from './constants'
-import type { Chat, ChatState, ChatStore } from './types'
+import type { Chat, NewChat } from './types'
+
+interface ChatState {
+	chats: Chat[]
+}
+
+interface ChatActions {
+	/** Создаёт чат или возвращает уже существующий с тем же id. */
+	addChat: (chat: NewChat) => Chat
+	/** Добавляет чату дополнительный chatId собеседника. */
+	addAlias: (id: string, apiChatId: string) => void
+	removeChat: (id: string) => void
+	/** Удаляет все чаты. */
+	reset: () => void
+}
 
 /** Стор чатов; хранится в localStorage. */
-export const useChatStore = create<ChatStore>()(
+export const useChatStore = create<ChatState & ChatActions>()(
 	persist(
 		(set, get) => ({
 			chats: [],

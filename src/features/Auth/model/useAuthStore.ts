@@ -1,11 +1,23 @@
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 
+import type { GreenApiCredentials } from '@shared/api/greenApi'
+
 import { verifyCredentials } from '../api/auth.service'
 
 import { claimChatData, wipeChatData } from './chatData'
 import { AUTH_STORAGE_KEY } from './constants'
-import type { AuthState, AuthStore } from './types'
+
+interface AuthState {
+	isAuthorized: boolean
+	credentials: GreenApiCredentials | null
+}
+
+interface AuthActions {
+	/** Проверяет креды и сохраняет их в сторе; бросает Error с текстом для пользователя. */
+	login: (credentials: GreenApiCredentials) => Promise<void>
+	logout: () => void
+}
 
 const initial: AuthState = {
 	isAuthorized: false,
@@ -13,7 +25,7 @@ const initial: AuthState = {
 }
 
 /** Стор авторизации; креды хранятся в sessionStorage до закрытия вкладки. */
-export const useAuthStore = create<AuthStore>()(
+export const useAuthStore = create<AuthState & AuthActions>()(
 	persist(
 		(set) => ({
 			...initial,

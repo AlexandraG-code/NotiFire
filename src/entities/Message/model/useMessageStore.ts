@@ -2,10 +2,24 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
 import { MESSAGE_STORAGE_KEY } from './constants'
-import type { MessageStore } from './types'
+import type { Message, MessagePatch } from './types'
+
+interface MessageState {
+	byChat: Record<string, Message[]>
+}
+
+interface MessageActions {
+	/** Добавляет сообщение; если сообщение с таким id в чате уже есть, ничего не делает. */
+	addMessage: (message: Message) => void
+	updateMessage: (chatId: string, id: string, patch: MessagePatch) => void
+	/** Удаляет все сообщения. */
+	reset: () => void
+	/** Переносит все сообщения одного чата в другой (при слиянии дублей), сохраняя порядок по времени. */
+	moveMessages: (fromChatId: string, toChatId: string) => void
+}
 
 /** Стор сообщений по чатам; история хранится в localStorage, т.к. GREEN-API не отдаёт входящие повторно. */
-export const useMessageStore = create<MessageStore>()(
+export const useMessageStore = create<MessageState & MessageActions>()(
 	persist(
 		(set) => ({
 			byChat: {},

@@ -5,10 +5,18 @@ import { ThemeMode } from '@shared/theme'
 
 import { THEME_STORAGE_KEY } from './constants'
 import { getSystemMode } from './getSystemMode'
-import type { ThemeStore } from './types'
+
+interface ThemeState {
+	mode: ThemeMode
+}
+
+interface ThemeActions {
+	setMode: (mode: ThemeMode) => void
+	toggleMode: () => void
+}
 
 /** Стор темы; выбор пользователя хранится в localStorage, по умолчанию — тема системы. */
-export const useThemeStore = create<ThemeStore>()(
+export const useThemeStore = create<ThemeState & ThemeActions>()(
 	persist(
 		(set) => ({
 			mode: getSystemMode(),

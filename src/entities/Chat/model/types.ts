@@ -10,19 +10,3 @@ export interface Chat {
 }
 
 export type NewChat = Pick<Chat, 'id' | 'apiChatId' | 'title'>
-
-export interface ChatState {
-	chats: Chat[]
-}
-
-export interface ChatActions {
-	/** Создаёт чат или возвращает уже существующий с тем же id. */
-	addChat: (chat: NewChat) => Chat
-	/** Добавляет чату дополнительный chatId собеседника. */
-	addAlias: (id: string, apiChatId: string) => void
-	removeChat: (id: string) => void
-	/** Удаляет все чаты. */
-	reset: () => void
-}
-
-export type ChatStore = ChatState & ChatActions
