@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { App, Button, Form, Input } from 'antd'
+import { Button, Form, Input } from 'antd'
 import { useNavigate } from 'react-router-dom'
 
 import type { GreenApiCredentials } from '@shared/api/greenApi'
@@ -13,25 +13,22 @@ import { useAuthStore } from '../model/useAuthStore'
  * @returns {JSX.Element} Форма авторизации
  */
 export const AuthForm = () => {
-	const [form] = Form.useForm<GreenApiCredentials>()
 	const login = useAuthStore((state) => state.login)
-	const navigate = useNavigate()
+
 	const [loading, setLoading] = useState(false)
-	const { notification } = App.useApp()
+
+	const [form] = Form.useForm<GreenApiCredentials>()
+	const navigate = useNavigate()
 
 	const onFinish = async (values: GreenApiCredentials) => {
 		setLoading(true)
-		try {
-			await login({ idInstance: values.idInstance.trim(), apiTokenInstance: values.apiTokenInstance.trim() })
-			navigate(AppRoute.Root, { replace: true })
-		} catch (e) {
-			notification.error({
-				message: 'Не удалось войти',
-				description: e instanceof Error ? e.message : undefined
-			})
-		} finally {
-			setLoading(false)
-		}
+		const isLoggedIn = await login({
+			idInstance: values.idInstance.trim(),
+			apiTokenInstance: values.apiTokenInstance.trim()
+		})
+		setLoading(false)
+
+		if (isLoggedIn) navigate(AppRoute.Root, { replace: true })
 	}
 
 	return (

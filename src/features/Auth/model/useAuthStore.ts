@@ -2,6 +2,7 @@ import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 
 import type { GreenApiCredentials } from '@shared/api/greenApi'
+import { runAsyncAction } from '@shared/lib'
 
 import { verifyCredentials } from '../api/auth.service'
 
@@ -14,8 +15,8 @@ interface AuthState {
 }
 
 interface AuthActions {
-	/** Проверяет креды и сохраняет их в сторе; бросает Error с текстом для пользователя. */
-	login: (credentials: GreenApiCredentials) => Promise<void>
+	/** Проверяет креды и сохраняет их в сторе. Ошибку показывает пользователю сам; возвращает true, если вход выполнен. */
+	login: (credentials: GreenApiCredentials) => Promise<boolean>
 	logout: () => void
 }
 
@@ -29,11 +30,15 @@ export const useAuthStore = create<AuthState & AuthActions>()(
 	persist(
 		(set) => ({
 			...initial,
-			login: async (credentials) => {
-				await verifyCredentials(credentials)
-				claimChatData(credentials.idInstance)
-				set({ isAuthorized: true, credentials })
-			},
+			login: (credentials) =>
+				runAsyncAction(
+					async () => {
+						await verifyCredentials(credentials)
+						claimChatData(credentials.idInstance)
+						set({ isAuthorized: true, credentials })
+					},
+					{ errorTitle: 'Не удалось войти' }
+				),
 			logout: () => {
 				wipeChatData()
 				set(initial)

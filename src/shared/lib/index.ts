@@ -1,3 +1,5 @@
+export { getErrorMessage, reportError, runAsyncAction, setErrorListener } from './errors'
+export type { ErrorReport } from './errors'
 export { formatDay } from './formatDay'
 export { formatTime } from './formatTime'
 export { sleep } from './sleep'
