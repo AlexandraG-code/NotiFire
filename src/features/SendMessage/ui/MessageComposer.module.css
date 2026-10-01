@@ -1,0 +1,27 @@
+.composer {
+	padding: 0 max(16px, calc((100% - 720px) / 2)) 16px;
+}
+
+.pill {
+	display: flex;
+	align-items: flex-end;
+	gap: 8px;
+	padding: 6px 6px 6px 16px;
+	background: var(--color-bg-elevated);
+	border-radius: 24px;
+}
+
+.input {
+	flex: 1;
+	padding: 6px 0;
+	border: none;
+	background: transparent;
+	box-shadow: none;
+	font-size: 16px;
+}
+
+.input:focus,
+.input:focus-visible {
+	outline: none;
+	box-shadow: none;
+}
