@@ -6,18 +6,33 @@ import { sleep } from '@shared/lib'
 import { LINK_ATTEMPTS, LINK_RETRY_DELAY_MS } from './constants'
 import type { OutgoingConfirmation } from './types'
 
+/**
+ * Ищет чат, в котором лежит сообщение с таким идентификатором GREEN-API.
+ * @param {string} idMessage - Идентификатор сообщения
+ * @returns {string | undefined} id чата или undefined, если сообщения пока нет
+ */
 const findOwnerChatId = (idMessage: string): string | undefined =>
 	Object.entries(useMessageStore.getState().byChat).find(([, messages]) =>
 		messages.some((message) => message.id === idMessage)
 	)?.[0]
 
+/**
+ * Добавляет чату дополнительный chatId; если ответ уже создал отдельный чат, сливает его с этим.
+ * @param {string} ownerId - id чата, из которого отправляли сообщение
+ * @param {string} apiChatId - Настоящий chatId получателя
+ * @returns {void}
+ */
 const attachAlias = (ownerId: string, apiChatId: string) => {
 	const { chats, addAlias, removeChat } = useChatStore.getState()
 	const owner = chats.find((chat) => chat.id === ownerId)
-	if (!owner || owner.apiChatId === apiChatId || owner.aliases.includes(apiChatId)) return
+
+	if (!owner || owner.apiChatId === apiChatId || owner.aliases.includes(apiChatId)) {
+		return
+	}
 
 	// Ответ мог прийти раньше подтверждения и создать отдельный чат — сливаем его с нашим
 	const duplicate = findChatByApiId(chats, apiChatId)
+
 	if (duplicate && duplicate.id !== ownerId) {
 		useMessageStore.getState().moveMessages(duplicate.id, ownerId)
 		removeChat(duplicate.id)
@@ -34,10 +49,12 @@ const attachAlias = (ownerId: string, apiChatId: string) => {
 export const linkOutgoing = async ({ idMessage, apiChatId }: OutgoingConfirmation): Promise<void> => {
 	for (let attempt = 0; attempt < LINK_ATTEMPTS; attempt++) {
 		const ownerId = findOwnerChatId(idMessage)
+
 		if (ownerId) {
 			attachAlias(ownerId, apiChatId)
 			return
 		}
+
 		await sleep(LINK_RETRY_DELAY_MS)
 	}
 }

@@ -14,6 +14,13 @@ import type {
 } from './types'
 import { buildMethodUrl } from './url'
 
+/**
+ * Вызывает метод GREEN-API и возвращает тело ответа.
+ * @param {GreenApiCredentials} creds - Данные инстанса
+ * @param {GreenApiMethod} method - Вызываемый метод
+ * @param {CallOptions} [options] - HTTP-метод, тело, параметры запроса и сигнал отмены
+ * @returns {Promise<T>} Тело ответа
+ */
 const call = async <T>(creds: GreenApiCredentials, method: GreenApiMethod, options: CallOptions = {}): Promise<T> => {
 	const { httpMethod = HttpMethod.Get, data, params, pathSuffix, signal } = options
 	const response = await AxiosInstance.request<T>({

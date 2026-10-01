@@ -6,9 +6,8 @@ import { useChatStore } from '@entities/Chat'
 import { toChatId } from '@shared/api/greenApi'
 import { AppRoute } from '@shared/config'
 
-import { buildPhone } from '../lib/buildPhone'
-import { isPhoneValid } from '../lib/isPhoneValid'
 import { DEFAULT_COUNTRY } from '../model/countries'
+import { useCreateChatHelpers } from '../model/useCreateChatHelpers'
 
 import styles from './CreateChatModal.module.css'
 import { PhoneField } from './PhoneField'
@@ -24,11 +23,14 @@ const INITIAL_VALUES: CreateChatFormValues = { country: DEFAULT_COUNTRY, number:
  * @returns {JSX.Element} Модальное окно
  */
 export const CreateChatModal = ({ open, onClose }: CreateChatModalProps) => {
+	const addChat = useChatStore((state) => state.addChat)
+
 	const [form] = Form.useForm<CreateChatFormValues>()
 	const country = Form.useWatch('country', form) ?? DEFAULT_COUNTRY
 	const number = Form.useWatch('number', form)
-	const addChat = useChatStore((state) => state.addChat)
 	const navigate = useNavigate()
+
+	const { buildPhone, isPhoneValid } = useCreateChatHelpers()
 
 	const handleFinish = (values: CreateChatFormValues) => {
 		const phone = buildPhone(values.country, values.number)

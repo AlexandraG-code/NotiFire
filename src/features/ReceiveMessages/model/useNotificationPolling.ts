@@ -17,7 +17,9 @@ export const useNotificationPolling = (credentials: GreenApiCredentials | null):
 	const apiTokenInstance = credentials?.apiTokenInstance
 
 	useEffect(() => {
-		if (!idInstance || !apiTokenInstance) return
+		if (!idInstance || !apiTokenInstance) {
+			return
+		}
 
 		const creds = { idInstance, apiTokenInstance }
 		const controller = new AbortController()
@@ -30,7 +32,10 @@ export const useNotificationPolling = (credentials: GreenApiCredentials | null):
 						receiveTimeoutSeconds: RECEIVE_TIMEOUT_SECONDS,
 						signal
 					})
-					if (!notification) continue
+
+					if (!notification) {
+						continue
+					}
 
 					handleNotification(notification.body)
 					await greenApi.deleteNotification(creds, notification.receiptId, signal)

@@ -19,5 +19,8 @@ export const handleNotification = (body: NotificationBody): void => {
 	}
 
 	const confirmation = parseOutgoingConfirmation(body)
-	if (confirmation) void linkOutgoing(confirmation)
+
+	if (confirmation) {
+		void linkOutgoing(confirmation)
+	}
 }

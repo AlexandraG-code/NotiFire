@@ -10,6 +10,11 @@ const INVALID_CREDENTIALS_STATUSES: number[] = [
 	HttpStatus.NotFound
 ]
 
+/**
+ * Подбирает текст для пользователя по ошибке запроса.
+ * @param {unknown} error - Ошибка из catch
+ * @returns {string} «Неверные данные» для статусов отказа, иначе «Нет связи»
+ */
 const getErrorMessage = (error: unknown): string =>
 	isAxiosError(error) && error.response && INVALID_CREDENTIALS_STATUSES.includes(error.response.status)
 		? 'Неверный idInstance или apiTokenInstance'

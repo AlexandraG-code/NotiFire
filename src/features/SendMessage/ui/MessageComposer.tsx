@@ -16,16 +16,23 @@ const MAX_ROWS = 6
  */
 export const MessageComposer = ({ onSend }: MessageComposerProps) => {
 	const [text, setText] = useState('')
+
 	const trimmed = text.trim()
 
 	const submit = () => {
-		if (!trimmed) return
+		if (!trimmed) {
+			return
+		}
+
 		onSend(trimmed)
 		setText('')
 	}
 
 	const handleKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>) => {
-		if (event.key !== 'Enter' || event.shiftKey) return
+		if (event.key !== 'Enter' || event.shiftKey) {
+			return
+		}
+
 		event.preventDefault()
 		submit()
 	}

@@ -2,6 +2,11 @@ import { CSS_VAR_PREFIX, THEME_ATTRIBUTE } from './constants'
 import type { ThemeMode } from './enums'
 import { themeTokens } from './themes'
 
+/**
+ * Превращает camelCase в kebab-case: `bgPrimary` → `bg-primary`.
+ * @param {string} value - Строка в camelCase
+ * @returns {string} Строка в kebab-case
+ */
 const toKebabCase = (value: string): string => value.replace(/[A-Z]/g, (char) => `-${char.toLowerCase()}`)
 
 /**

@@ -18,9 +18,10 @@ import { SettingsMenu } from './SettingsMenu'
  * @returns {JSX.Element} Сайдбар
  */
 export const ChatSidebar = () => {
-	const [isModalOpen, setIsModalOpen] = useState(false)
 	const chats = useChatStore((state) => state.chats)
 	const byChat = useMessageStore((state) => state.byChat)
+
+	const [isModalOpen, setIsModalOpen] = useState(false)
 
 	return (
 		<aside className={styles.sidebar}>
@@ -37,7 +38,7 @@ export const ChatSidebar = () => {
 			<div className={styles.list}>
 				{chats.length === 0 && <div className={styles.empty}>Создайте первый чат кнопкой «+»</div>}
 				{chats.map((chat) => (
-					<ChatListItem key={chat.id} chat={chat} lastMessage={byChat[chat.id]?.at(-1)} />
+					<ChatListItem key={chat.id} chat={chat} lastMessage={byChat[chat.id]?.at(-1)} /> // at(-1): последнее сообщение чата
 				))}
 			</div>
 			<SettingsMenu />

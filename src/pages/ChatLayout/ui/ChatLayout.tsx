@@ -15,8 +15,10 @@ import styles from './ChatLayout.module.css'
  */
 export const ChatLayout = () => {
 	const credentials = useAuthStore((state) => state.credentials)
-	useNotificationPolling(credentials)
+
 	const isChatOpen = Boolean(useMatch(AppRoute.Chat))
+
+	useNotificationPolling(credentials)
 
 	return (
 		<div className={styles.layout} data-chat-open={isChatOpen}>

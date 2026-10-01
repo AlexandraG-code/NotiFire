@@ -2,6 +2,11 @@ import { MS_IN_SECOND, type NotificationBody, TypeMessage, TypeWebhook, isGroupC
 
 import type { IncomingMessage } from '../model/types'
 
+/**
+ * Достаёт текст сообщения из уведомления: обычного или расширенного (со ссылкой, цитатой).
+ * @param {NotificationBody} body - Тело уведомления
+ * @returns {string | undefined} Текст или undefined, если сообщение не текстовое
+ */
 const extractText = ({ messageData }: NotificationBody): string | undefined => {
 	switch (messageData?.typeMessage) {
 		case TypeMessage.TextMessage:

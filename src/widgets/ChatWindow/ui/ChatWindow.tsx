@@ -23,8 +23,9 @@ const HEADER_AVATAR_SIZE = 40
  * @returns {JSX.Element} Окно диалога
  */
 export const ChatWindow = ({ chat, credentials }: ChatWindowProps) => {
-	const { send, retry } = useSendMessage(chat, credentials)
 	const navigate = useNavigate()
+
+	const { send, retry } = useSendMessage(chat, credentials)
 
 	return (
 		<ChatBackground>

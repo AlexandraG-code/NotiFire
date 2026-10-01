@@ -10,6 +10,7 @@ import { useAuthStore } from './useAuthStore'
  */
 export const useLogout = () => {
 	const logout = useAuthStore((state) => state.logout)
+
 	const navigate = useNavigate()
 
 	return () => {

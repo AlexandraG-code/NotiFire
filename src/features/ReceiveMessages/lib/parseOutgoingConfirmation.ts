@@ -8,10 +8,14 @@ import type { OutgoingConfirmation } from '../model/types'
  * @returns {OutgoingConfirmation | null} Подтверждение или null, если это уведомление другого типа
  */
 export const parseOutgoingConfirmation = (body: NotificationBody): OutgoingConfirmation | null => {
-	if (body.typeWebhook !== TypeWebhook.OutgoingAPIMessageReceived) return null
+	if (body.typeWebhook !== TypeWebhook.OutgoingAPIMessageReceived) {
+		return null
+	}
 
 	const { idMessage, senderData } = body
-	if (!idMessage || !senderData?.chatId || isGroupChatId(senderData.chatId)) return null
+	if (!idMessage || !senderData?.chatId || isGroupChatId(senderData.chatId)) {
+		return null
+	}
 
 	return { idMessage, apiChatId: senderData.chatId }
 }

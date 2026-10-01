@@ -15,8 +15,10 @@ import styles from './SettingsMenu.module.css'
  */
 export const SettingsMenu = () => {
 	const mode = useThemeStore((state) => state.mode)
+
 	const toggleTheme = useThemeToggle()
 	const logout = useLogout()
+
 	const isDark = mode === ThemeMode.Dark
 
 	const items: MenuProps['items'] = [

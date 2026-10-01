@@ -13,7 +13,9 @@ import { useThemeToggle } from '../model/useThemeToggle'
  */
 export const ThemeSwitch = () => {
 	const mode = useThemeStore((state) => state.mode)
+
 	const toggleTheme = useThemeToggle()
+
 	const isDark = mode === ThemeMode.Dark
 
 	return (

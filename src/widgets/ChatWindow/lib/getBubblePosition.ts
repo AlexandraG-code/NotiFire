@@ -8,6 +8,7 @@ import { BubblePosition, type Message } from '@entities/Message'
  */
 export const getBubblePosition = (messages: Message[], index: number): BubblePosition => {
 	const { direction } = messages[index]
+	// соседние сообщения в ленте: предыдущее и следующее
 	const hasPrev = messages[index - 1]?.direction === direction
 	const hasNext = messages[index + 1]?.direction === direction
 

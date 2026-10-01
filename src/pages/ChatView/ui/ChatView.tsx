@@ -13,12 +13,16 @@ import { AppRoute } from '@shared/config'
  * @returns {JSX.Element} Окно диалога или редирект
  */
 export const ChatView = () => {
-	const { chatId } = useParams()
-	const chat = useChatStore((state) => state.chats.find((item) => item.id === chatId))
-
+	const chats = useChatStore((state) => state.chats)
 	const credentials = useAuthStore((state) => state.credentials)
 
-	if (!chat || !credentials) return <Navigate to={AppRoute.Root} replace />
+	const { chatId } = useParams()
+
+	const chat = chats.find((item) => item.id === chatId)
+
+	if (!chat || !credentials) {
+		return <Navigate to={AppRoute.Root} replace />
+	}
 
 	return <ChatWindow key={chat.id} chat={chat} credentials={credentials} />
 }

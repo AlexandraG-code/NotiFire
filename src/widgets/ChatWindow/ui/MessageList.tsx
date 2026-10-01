@@ -21,8 +21,10 @@ const NO_MESSAGES: Message[] = []
  */
 export const MessageList = ({ chatId, onRetry }: MessageListProps) => {
 	const messages = useMessageStore((state) => state.byChat[chatId] ?? NO_MESSAGES)
-	const groups = useMemo(() => groupMessagesByDay(messages), [messages])
+
 	const endRef = useRef<HTMLDivElement>(null)
+
+	const groups = useMemo(() => groupMessagesByDay(messages), [messages])
 
 	useEffect(() => {
 		endRef.current?.scrollIntoView({ block: 'end' })

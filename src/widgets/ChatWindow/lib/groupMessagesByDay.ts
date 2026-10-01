@@ -10,7 +10,7 @@ import type { DayGroup } from './types'
 export const groupMessagesByDay = (messages: Message[]): DayGroup[] =>
 	messages.reduce<DayGroup[]>((groups, message) => {
 		const day = new Date(message.timestamp).setHours(0, 0, 0, 0)
-		const last = groups.at(-1)
+		const last = groups.at(-1) // последняя из уже собранных групп
 
 		if (last?.day === day) last.messages.push(message)
 		else groups.push({ day, messages: [message] })
