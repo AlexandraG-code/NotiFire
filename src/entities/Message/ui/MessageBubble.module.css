@@ -1,0 +1,100 @@
+.row {
+	--bubble-radius: 16px;
+	--bubble-radius-tight: 6px;
+
+	display: flex;
+	padding: 1px 0;
+}
+
+.single,
+.upper {
+	margin-top: 6px;
+}
+
+.rowOutgoing {
+	justify-content: flex-end;
+}
+
+.bubble {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-end;
+	justify-content: flex-end;
+	gap: 4px 10px;
+	max-width: min(75%, 520px);
+	padding: 8px 10px 10px;
+	border-radius: var(--bubble-radius);
+	font-size: 16px;
+	line-height: 20px;
+}
+
+.incoming {
+	color: var(--color-bubble-in-text);
+	background: var(--color-bubble-in-bg);
+}
+
+.outgoing {
+	color: var(--color-bubble-own-text);
+	background: var(--color-bubble-own-bg);
+}
+
+.text {
+	flex: 1 1 auto;
+	min-width: 0;
+	white-space: pre-wrap;
+	overflow-wrap: anywhere;
+}
+
+.meta {
+	display: inline-flex;
+	flex: none;
+	align-items: center;
+	gap: 4px;
+	font-size: 12px;
+	line-height: 16px;
+}
+
+.retry {
+	padding: 0;
+	font-size: 12px;
+	color: inherit;
+	text-decoration: underline;
+	cursor: pointer;
+	background: none;
+	border: none;
+}
+
+.incoming .meta {
+	color: var(--color-bubble-in-time);
+}
+
+.outgoing .meta {
+	color: var(--color-bubble-own-time);
+}
+
+/* Закругления по положению в серии: соседние углы между пузырями малые, внешние — большие */
+.outgoing.upper {
+	border-bottom-right-radius: var(--bubble-radius-tight);
+}
+
+.outgoing.middle {
+	border-top-right-radius: var(--bubble-radius-tight);
+	border-bottom-right-radius: var(--bubble-radius-tight);
+}
+
+.outgoing.bottom {
+	border-top-right-radius: var(--bubble-radius-tight);
+}
+
+.incoming.upper {
+	border-bottom-left-radius: var(--bubble-radius-tight);
+}
+
+.incoming.middle {
+	border-top-left-radius: var(--bubble-radius-tight);
+	border-bottom-left-radius: var(--bubble-radius-tight);
+}
+
+.incoming.bottom {
+	border-top-left-radius: var(--bubble-radius-tight);
+}

@@ -1,0 +1,6 @@
+.avatar {
+	flex: none;
+	color: #fff;
+	font-weight: 500;
+	background: linear-gradient(135deg, var(--color-accent), #6965e5);
+}
