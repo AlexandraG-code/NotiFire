@@ -1,0 +1,13 @@
+window._env_ = {
+	// Шаблон хоста GREEN-API: {shard} заменяется первыми 4 цифрами idInstance
+	GREEN_API_URL_TEMPLATE: 'https://{shard}.api.green-api.com',
+
+	// Таймаут HTTP-запросов, мс
+	API_TIMEOUT_MS: '15000',
+
+	// Сколько секунд сервер держит запрос receiveNotification, если уведомлений нет (5–60)
+	NOTIFICATION_RECEIVE_TIMEOUT_S: '5',
+
+	// Пауза перед повтором опроса после ошибки, мс
+	NOTIFICATION_RETRY_DELAY_MS: '5000'
+}

@@ -1,3 +1,14 @@
+import { ThemeProvider } from './providers/ThemeProvider'
+import { AppRouter } from './routes/AppRouter'
+
+/**
+ * Корневой компонент приложения: подключает тему и роутер.
+ * @returns {JSX.Element} Приложение
+ */
 export function App() {
-	return <div>notifier</div>
+	return (
+		<ThemeProvider>
+			<AppRouter />
+		</ThemeProvider>
+	)
 }

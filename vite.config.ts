@@ -5,6 +5,14 @@ import { defineConfig } from 'vite'
 
 export default defineConfig({
 	plugins: [react()],
+	build: {
+		rollupOptions: {
+			input: {
+				main: resolve(__dirname, 'index.html'),
+				env_config: resolve(__dirname, 'env-config.ts')
+			}
+		}
+	},
 	resolve: {
 		alias: {
 			'@app': resolve(__dirname, './src/app'),

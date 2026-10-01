@@ -1,75 +1,110 @@
-# React + TypeScript + Vite
+# notifierFrontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Веб-чат для отправки и получения текстовых сообщений через [GREEN-API](https://green-api.com). Интерфейс повторяет внешний вид [web.max.ru](https://web.max.ru): светлая и тёмная темы, серии сообщений, плавающее поле ввода.
 
-Currently, two official plugins are available:
+Тестовое задание на позицию «Фронтенд разработчик React». Условия — в `src/task.txt`.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Возможности
 
-## React Compiler
+- Вход по `idInstance` и `apiTokenInstance` из личного кабинета GREEN-API.
+- Создание чата по номеру телефона (выбор страны с флагом и кодом, проверка номера).
+- Отправка текстовых сообщений методом `sendMessage` со статусами «отправляется», «отправлено», «ошибка» и повторной отправкой.
+- Получение ответов методом HTTP API (`receiveNotification` и `deleteNotification`), ответы появляются в чате сами.
+- Светлая и тёмная темы с круговой анимацией переключения.
+- Адаптивная раскладка: в окне уже 900px виден либо список чатов, либо диалог.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Требования
 
-## Expanding the ESLint configuration
+- Node.js 20.19+ или 22.12+ (проверялось на 24)
+- Yarn 1.22
+- Аккаунт GREEN-API с авторизованным инстансом (MAX, Telegram или WhatsApp)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Локальный запуск
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+yarn install
+cp env-config.ts.sample env-config.ts
+yarn dev
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+Приложение откроется на http://localhost:5173.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+`env-config.ts` — runtime-конфиг (`window._env_`), в git он не попадает. Без него приложение не соберётся и не запустится. Параметры:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+| Параметр                         | Значение по умолчанию               | Описание                                                                       |
+| -------------------------------- | ----------------------------------- | ------------------------------------------------------------------------------ |
+| `GREEN_API_URL_TEMPLATE`         | `https://{shard}.api.green-api.com` | Адрес API, `{shard}` заменяется первыми 4 цифрами `idInstance`                 |
+| `API_TIMEOUT_MS`                 | `15000`                             | Таймаут HTTP-запросов, мс                                                      |
+| `NOTIFICATION_RECEIVE_TIMEOUT_S` | `5`                                 | Сколько секунд сервер держит запрос получения, если новых сообщений нет (5–60) |
+| `NOTIFICATION_RETRY_DELAY_MS`    | `5000`                              | Пауза перед повтором опроса после ошибки, мс                                   |
+
+## Настройка инстанса GREEN-API
+
+Чтобы приложение получало ответы, на инстансе должны быть включены уведомления. Это делается один раз.
+
+1. Откройте страницу инстанса в [консоли GREEN-API](https://console.green-api.com).
+2. В блоке уведомлений включите получение входящих сообщений (`incomingWebhook`) и сообщений, отправленных по API (`outgoingAPIMessageWebhook`). Поле адреса для уведомлений (`webhookUrl`) оставьте пустым: так работает получение через HTTP API.
+3. Подождите около пяти минут, пока настройки применятся.
+
+То же самое можно сделать запросом `setSettings`:
+
+```json
+{ "incomingWebhook": "yes", "outgoingAPIMessageWebhook": "yes" }
+```
+
+Второе уведомление нужно, чтобы связать чат, созданный по номеру телефона, с идентификатором собеседника: при отправке на номер сервис превращает его в числовой `chatId`, и ответы приходят уже с ним.
+
+## Как пользоваться
+
+1. Введите `idInstance` и `apiTokenInstance` и нажмите «Войти». Инстанс должен быть авторизован.
+2. Нажмите синюю кнопку «+», выберите страну, введите номер получателя и нажмите «Начать чат».
+3. Напишите сообщение. Enter отправляет, Shift+Enter переносит строку.
+4. Когда получатель ответит, сообщение появится в этом же чате.
+5. Тема и выход находятся в «Настройках» внизу списка чатов.
+
+## Скрипты
+
+| Команда        | Что делает                               |
+| -------------- | ---------------------------------------- |
+| `yarn dev`     | Dev-сервер                               |
+| `yarn build`   | Проверка типов и сборка в `dist`         |
+| `yarn preview` | Локальный просмотр собранного приложения |
+| `yarn lint`    | ESLint                                   |
+| `yarn format`  | Prettier                                 |
+
+## Структура проекта
+
+Проект построен по [Feature-Sliced Design](https://feature-sliced.design): слои `app → pages → widgets → features → entities → shared`, импорт идёт только вниз.
 
 ```
+src/
+  app/        точка входа, роутер, провайдер темы
+  pages/      ChatLayout, ChatView, EmptyChat, AuthPage
+  widgets/    ChatSidebar, ChatWindow
+  features/   Auth, CreateChat, SendMessage, ReceiveMessages, Theme
+  entities/   Chat, Message
+  shared/     api (клиент GREEN-API), theme (токены двух тем), config, lib, ui
+```
+
+Правила кода для разработчиков и агентов описаны в `CLAUDE.md`.
+
+## Хранение данных и безопасность
+
+- `apiTokenInstance` хранится в `sessionStorage` и исчезает при закрытии вкладки. HttpOnly-куки здесь невозможны: приложение без своего сервера обращается к GREEN-API напрямую из браузера, а сервер для них нужен.
+- Чаты и сообщения хранятся в `localStorage`, потому что GREEN-API отдаёт каждое входящее уведомление один раз. Данные привязаны к `idInstance`: при выходе они стираются, а при входе с другим инстансом сбрасываются.
+- Данные в `localStorage` читаются через инструменты разработчика в браузере, пока вы не вышли. На общем компьютере выходите из приложения кнопкой «Выйти».
+
+## Сборка
+
+```bash
+cp env-config.ts.sample env-config.ts
+yarn build
+```
+
+Значения из `env-config.ts` попадают в сборку, поэтому файл должен лежать до запуска `yarn build`. Готовые файлы окажутся в `dist`.
+
+## Ограничения
+
+- Обрабатываются только текстовые сообщения из личных чатов. Медиа, группы и каналы игнорируются.
+- Входящие сообщения приходят, пока приложение открыто: опрос идёт из вкладки браузера. Уведомления, пришедшие при закрытом приложении, какое-то время хранятся в очереди GREEN-API (срок указан в документации сервиса) и подтянутся при следующем входе.
+- История чата не запрашивается у GREEN-API, она собирается из того, что видело приложение.
