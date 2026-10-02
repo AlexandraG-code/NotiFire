@@ -6,10 +6,10 @@ import { MessengerSelect, useSkinStore } from '@features/MessengerSelect'
 import { ThemeSwitcher } from '@features/ThemeSwitcher'
 
 import { Namespace } from '@shared/i18n'
-import { CenteredCardLayout } from '@shared/ui'
+import { AppLogo, CenteredCardLayout } from '@shared/ui'
 
 /**
- * Страница входа: карточка с формой и переключатель темы.
+ * Страница входа: логотип, карточка с формой и переключатель темы.
  * @returns {JSX.Element} Страница авторизации
  */
 export const AuthPage = () => {
@@ -19,6 +19,7 @@ export const AuthPage = () => {
 
 	return (
 		<CenteredCardLayout
+			logo={<AppLogo />}
 			title={t('page.title')}
 			subtitle={t('page.subtitle')}
 			controls={

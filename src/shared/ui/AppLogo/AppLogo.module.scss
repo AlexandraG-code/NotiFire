@@ -1,0 +1,6 @@
+@use './AppLogo.variables' as *;
+
+.logo {
+	display: inline-flex;
+	font-size: $app-logo-icon-size;
+}
