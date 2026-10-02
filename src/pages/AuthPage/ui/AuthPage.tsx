@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next'
 
 import { AuthForm } from '@features/Auth'
 import { LanguageSwitcher } from '@features/LanguageSwitcher'
-import { MessengerSelect } from '@features/MessengerSelect'
+import { MessengerSelect, useSkinStore } from '@features/MessengerSelect'
 import { ThemeSwitcher } from '@features/ThemeSwitcher'
 
 import { Namespace } from '@shared/i18n'
@@ -13,6 +13,8 @@ import { CenteredCardLayout } from '@shared/ui'
  * @returns {JSX.Element} Страница авторизации
  */
 export const AuthPage = () => {
+	const skin = useSkinStore((state) => state.skin)
+
 	const { t } = useTranslation(Namespace.Auth)
 
 	return (
@@ -27,7 +29,7 @@ export const AuthPage = () => {
 			}
 		>
 			<MessengerSelect />
-			<AuthForm />
+			<AuthForm messenger={skin} />
 		</CenteredCardLayout>
 	)
 }
