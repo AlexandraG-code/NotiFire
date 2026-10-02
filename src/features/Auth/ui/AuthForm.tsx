@@ -7,7 +7,10 @@ import { useNavigate } from 'react-router-dom'
 import type { GreenApiCredentials } from '@shared/api/greenApi'
 import { AppRoute } from '@shared/config'
 import { Namespace } from '@shared/i18n'
+import { sleep } from '@shared/lib'
+import { BrandSplash } from '@shared/ui'
 
+import { SPLASH_DURATION_MS } from '../model/constants'
 import type { AuthFormProps, CredentialsDrafts } from '../model/types'
 import { useAuthStore } from '../model/useAuthStore'
 
@@ -44,37 +47,45 @@ export const AuthForm = ({ messenger }: AuthFormProps) => {
 	}
 
 	const onFinish = async (values: GreenApiCredentials) => {
+		const startedAt = Date.now()
 		setLoading(true)
+
 		const isLoggedIn = await login({
 			idInstance: values.idInstance.trim(),
 			apiTokenInstance: values.apiTokenInstance.trim()
 		})
-		setLoading(false)
 
 		if (isLoggedIn) {
+			// заставка доигрывает до конца, даже если вход прошёл быстро
+			await sleep(SPLASH_DURATION_MS - (Date.now() - startedAt))
 			navigate(AppRoute.Root, { replace: true })
+			return
 		}
+		setLoading(false)
 	}
 
 	return (
-		<Form form={form} layout="vertical" onValuesChange={saveDraft} onFinish={onFinish} requiredMark={false}>
-			<Form.Item
-				name="idInstance"
-				label="idInstance"
-				rules={[{ required: true, whitespace: true, message: t('form.enterIdInstance') }]}
-			>
-				<Input allowClear autoComplete="off" />
-			</Form.Item>
-			<Form.Item
-				name="apiTokenInstance"
-				label="apiTokenInstance"
-				rules={[{ required: true, whitespace: true, message: t('form.enterApiToken') }]}
-			>
-				<Input.Password allowClear autoComplete="new-password" />
-			</Form.Item>
-			<Button type="primary" htmlType="submit" loading={loading} block>
-				{t('form.submit')}
-			</Button>
-		</Form>
+		<>
+			<BrandSplash visible={loading} />
+			<Form form={form} layout="vertical" onValuesChange={saveDraft} onFinish={onFinish} requiredMark={false}>
+				<Form.Item
+					name="idInstance"
+					label="idInstance"
+					rules={[{ required: true, whitespace: true, message: t('form.enterIdInstance') }]}
+				>
+					<Input allowClear autoComplete="off" />
+				</Form.Item>
+				<Form.Item
+					name="apiTokenInstance"
+					label="apiTokenInstance"
+					rules={[{ required: true, whitespace: true, message: t('form.enterApiToken') }]}
+				>
+					<Input.Password allowClear autoComplete="new-password" />
+				</Form.Item>
+				<Button type="primary" htmlType="submit" loading={loading} block>
+					{t('form.submit')}
+				</Button>
+			</Form>
+		</>
 	)
 }

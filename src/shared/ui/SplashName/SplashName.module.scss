@@ -1,0 +1,17 @@
+@use '@shared/styles' as *;
+@use './SplashName.variables' as *;
+
+// Надпись раскрывается вправо от иконки; буквы выезжают из-под неё, лишнее обрезается
+.name {
+	display: flex;
+	overflow: hidden;
+	font-size: $splash-title-size;
+	font-weight: 600;
+	line-height: 1.2;
+	color: var(--color-text-primary);
+	white-space: nowrap;
+}
+
+.letter {
+	display: inline-block;
+}

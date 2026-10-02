@@ -1,4 +1,5 @@
 export { AppLogo } from './AppLogo/AppLogo'
+export { BrandSplash } from './BrandSplash/BrandSplash'
 export { ChatBackground } from './ChatBackground/ChatBackground'
 export { DEFAULT_COUNTRY, PhoneField } from './Form'
 export type { PhoneFieldValue } from './Form'

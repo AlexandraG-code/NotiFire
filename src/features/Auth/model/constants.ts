@@ -11,3 +11,6 @@ export const INVALID_CREDENTIALS_STATUSES: number[] = [
 	HttpStatus.Forbidden,
 	HttpStatus.NotFound
 ]
+
+/** Сколько мс показывается заставка после нажатия «Войти»: время на анимацию логотипа и названия. */
+export const SPLASH_DURATION_MS = 1500

@@ -1,0 +1,18 @@
+@use '@shared/styles' as *;
+@use './BrandSplash.variables' as *;
+
+.splash {
+	position: fixed;
+	inset: 0;
+	z-index: $splash-z-index;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: var(--color-bg-primary);
+}
+
+.icon {
+	display: inline-flex;
+	flex: none;
+	font-size: $splash-icon-size;
+}
