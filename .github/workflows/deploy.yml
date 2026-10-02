@@ -10,13 +10,19 @@ permissions:
   contents: read
   pages: write
   id-token: write
+  checks: write
 
 concurrency:
   group: pages
   cancel-in-progress: true
 
 jobs:
+  # Выкладка идёт только если линтер, типы, юнит- и e2e-тесты прошли
+  test:
+    uses: ./.github/workflows/ci.yml
+
   build:
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -30,8 +36,6 @@ jobs:
 
       # env-config.ts не хранится в git: берём значения по умолчанию из шаблона
       - run: cp env-config.ts.sample env-config.ts
-
-      - run: yarn lint
 
       - run: yarn build
 

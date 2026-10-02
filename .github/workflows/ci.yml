@@ -1,0 +1,69 @@
+name: CI
+
+# Проверки кода: запускаются на каждый pull request, а перед выкладкой вызываются из deploy.yml
+on:
+  pull_request:
+  workflow_call:
+
+permissions:
+  contents: read
+  checks: write
+
+jobs:
+  checks:
+    name: Проверки и тесты
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: yarn
+
+      - run: yarn install --frozen-lockfile
+
+      # env-config.ts не хранится в git: берём значения по умолчанию из шаблона
+      - run: cp env-config.ts.sample env-config.ts
+
+      - name: Линтер
+        run: yarn lint
+
+      - name: Проверка типов
+        run: yarn tsc -b
+
+      - name: Юнит-тесты (Vitest)
+        run: yarn test
+
+      - name: Результаты Vitest
+        if: ${{ !cancelled() }}
+        uses: dorny/test-reporter@v2
+        with:
+          name: Юнит-тесты (Vitest)
+          path: test-results/vitest-junit.xml
+          reporter: java-junit
+
+      - name: Браузер для e2e
+        run: yarn playwright install --with-deps chromium
+
+      - name: E2E-тесты (Playwright)
+        run: yarn e2e
+
+      - name: Результаты Playwright
+        if: ${{ !cancelled() }}
+        uses: dorny/test-reporter@v2
+        with:
+          name: E2E-тесты (Playwright)
+          path: test-results/e2e-junit.xml
+          reporter: java-junit
+
+      # Отчёт со скриншотами и трассировкой упавших тестов
+      - name: Сохранить отчёт Playwright
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: |
+            playwright-report
+            test-results
+          retention-days: 14
