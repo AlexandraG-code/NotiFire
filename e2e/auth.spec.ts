@@ -27,6 +27,14 @@ test.describe('вход', () => {
 		await expect(page.getByRole('button', { name: 'Войти' })).toBeVisible()
 	})
 
+	test('подсказка под формой ведёт в консоль GREEN-API', async ({ page }) => {
+		await page.goto('/')
+
+		const link = page.getByRole('link', { name: 'консоли GREEN-API' })
+		await expect(link).toHaveAttribute('href', 'https://console.green-api.com')
+		await expect(link).toHaveAttribute('target', '_blank')
+	})
+
 	test('без входа закрытая страница ведёт на форму входа', async ({ page }) => {
 		await page.goto('/#/chat/79161234567')
 

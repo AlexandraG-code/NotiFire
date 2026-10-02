@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
 
-import { AuthForm } from '@features/Auth'
+import { AuthForm, InstanceHint } from '@features/Auth'
 import { LanguageSwitcher } from '@features/LanguageSwitcher'
 import { MessengerSelect, useSkinStore } from '@features/MessengerSelect'
 import { ThemeSwitcher } from '@features/ThemeSwitcher'
@@ -31,6 +31,7 @@ export const AuthPage = () => {
 		>
 			<MessengerSelect />
 			<AuthForm messenger={skin} />
+			<InstanceHint />
 		</CenteredCardLayout>
 	)
 }

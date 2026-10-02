@@ -3,6 +3,7 @@ import '@testing-library/jest-dom/vitest'
 // Конфиг читается модулями при загрузке, поэтому заполняется раньше любых импортов приложения
 window._env_ = {
 	GREEN_API_URL_TEMPLATE: 'https://{shard}.api.green-api.com',
+	GREEN_API_CONSOLE_URL: 'https://console.green-api.com',
 	API_TIMEOUT_MS: '1000',
 	NOTIFICATION_RECEIVE_TIMEOUT_S: '5',
 	NOTIFICATION_RETRY_DELAY_MS: '5000',

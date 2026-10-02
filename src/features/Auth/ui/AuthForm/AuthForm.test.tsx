@@ -5,13 +5,13 @@ import { MemoryRouter, Route, Routes } from 'react-router-dom'
 
 import { Skin } from '@shared/theme'
 
-import { AuthService } from '../api/auth.service'
-import { StateInstance } from '../api/enums'
-import { useAuthStore } from '../model/useAuthStore'
+import { AuthService } from '../../api/auth.service'
+import { StateInstance } from '../../api/enums'
+import { useAuthStore } from '../../model/useAuthStore'
 
 import { AuthForm } from './AuthForm'
 
-vi.mock('../api/auth.service', () => ({ AuthService: { getStateInstance: vi.fn() } }))
+vi.mock('../../api/auth.service', () => ({ AuthService: { getStateInstance: vi.fn() } }))
 // заставка при входе держит экран около секунды: в тестах ждать её незачем
 vi.mock('@shared/lib', async (importOriginal) => ({
 	...(await importOriginal<object>()),

@@ -5,6 +5,9 @@ export declare global {
 			// Шаблон хоста GREEN-API, `{shard}` — первые 4 цифры idInstance
 			GREEN_API_URL_TEMPLATE: string
 
+			// Консоль GREEN-API: ссылка в подсказке на форме входа
+			GREEN_API_CONSOLE_URL: string
+
 			// Таймаут HTTP-запросов, мс
 			API_TIMEOUT_MS: string
 

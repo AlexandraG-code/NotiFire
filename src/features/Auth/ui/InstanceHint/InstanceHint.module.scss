@@ -1,0 +1,11 @@
+@use '@shared/styles' as *;
+
+.hint {
+	margin: 1em 0 0;
+	padding: rem(8) rem(12);
+	border-radius: rem(8);
+	background: var(--color-bg-secondary);
+	color: var(--color-text-secondary);
+	font-size: rem(13);
+	text-align: left;
+}

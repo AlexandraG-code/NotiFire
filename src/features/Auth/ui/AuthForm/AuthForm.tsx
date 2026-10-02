@@ -10,9 +10,9 @@ import { Namespace } from '@shared/i18n'
 import { sleep } from '@shared/lib'
 import { BrandSplash } from '@shared/ui'
 
-import { SPLASH_DURATION_MS } from '../model/constants'
-import type { AuthFormProps, CredentialsDrafts } from '../model/types'
-import { useAuthStore } from '../model/useAuthStore'
+import { SPLASH_DURATION_MS } from '../../model/constants'
+import type { AuthFormProps, CredentialsDrafts } from '../../model/types'
+import { useAuthStore } from '../../model/useAuthStore'
 
 /**
  * Форма входа по idInstance и apiTokenInstance; при успехе перенаправляет на главную.

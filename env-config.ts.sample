@@ -2,6 +2,9 @@ window._env_ = {
 	// Шаблон хоста GREEN-API: {shard} заменяется первыми 4 цифрами idInstance
 	GREEN_API_URL_TEMPLATE: 'https://{shard}.api.green-api.com',
 
+	// Консоль GREEN-API: ссылка в подсказке на форме входа
+	GREEN_API_CONSOLE_URL: 'https://console.green-api.com',
+
 	// Таймаут HTTP-запросов, мс
 	API_TIMEOUT_MS: '15000',
 
