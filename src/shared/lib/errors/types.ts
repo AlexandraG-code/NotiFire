@@ -22,8 +22,10 @@ export type ErrorDescriber = (error: unknown) => string | undefined
  * Параметры runAsyncAction.
  * @property {string} errorTitle - Заголовок уведомления, если действие упало
  * @property {ErrorDescriber} [describeError] - Свой текст ошибки; по умолчанию берётся message самой ошибки
+ * @property {boolean} [silent] - Не показывать ошибку пользователю, только записать в консоль (для фоновых проверок)
  */
 export interface AsyncActionOptions {
 	errorTitle: string
 	describeError?: ErrorDescriber
+	silent?: boolean
 }

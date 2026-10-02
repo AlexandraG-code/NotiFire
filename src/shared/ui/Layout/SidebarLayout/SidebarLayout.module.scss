@@ -1,8 +1,15 @@
 @use '@shared/styles' as *;
 
+.root {
+	display: flex;
+	flex-direction: column;
+	height: 100svh;
+}
+
 .layout {
 	display: flex;
-	height: 100svh;
+	flex: 1;
+	min-height: 0;
 }
 
 .sidebarPane {

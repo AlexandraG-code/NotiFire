@@ -21,5 +21,13 @@
 	"createChat": {
 		"title": "New chat",
 		"submit": "Start chat"
+	},
+	"notifications": {
+		"disabled": "Notifications are turned off for this instance: replies will not appear in the app.",
+		"enable": "Turn on",
+		"applying": "Turning on notifications, this takes a few minutes. You can already create chats and write, replies will appear once the settings take effect.",
+		"checkFailed": "Could not check instance settings",
+		"enableFailed": "Could not turn on notifications",
+		"notSaved": "GREEN-API did not accept the settings"
 	}
 }
