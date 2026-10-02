@@ -27,11 +27,15 @@ const extractText = ({ messageData }: NotificationBody): string | undefined => {
  * @returns {IncomingMessage | null} Сообщение или null, если уведомление не нужно приложению
  */
 export const parseIncomingMessage = (body: NotificationBody): IncomingMessage | null => {
-	if (body.typeWebhook !== TypeWebhook.IncomingMessageReceived) return null
+	if (body.typeWebhook !== TypeWebhook.IncomingMessageReceived) {
+		return null
+	}
 
 	const { senderData, idMessage, timestamp } = body
 	const text = extractText(body)
-	if (!senderData || !idMessage || !text || isGroupChatId(senderData.chatId)) return null
+	if (!senderData || !idMessage || !text || isGroupChatId(senderData.chatId)) {
+		return null
+	}
 
 	return {
 		id: idMessage,

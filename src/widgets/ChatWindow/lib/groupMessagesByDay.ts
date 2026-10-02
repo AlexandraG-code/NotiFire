@@ -12,8 +12,11 @@ export const groupMessagesByDay = (messages: Message[]): DayGroup[] =>
 		const day = new Date(message.timestamp).setHours(0, 0, 0, 0)
 		const last = groups.at(-1) // последняя из уже собранных групп
 
-		if (last?.day === day) last.messages.push(message)
-		else groups.push({ day, messages: [message] })
+		if (last?.day === day) {
+			last.messages.push(message)
+		} else {
+			groups.push({ day, messages: [message] })
+		}
 
 		return groups
 	}, [])

@@ -12,8 +12,14 @@ export const getBubblePosition = (messages: Message[], index: number): BubblePos
 	const hasPrev = messages[index - 1]?.direction === direction
 	const hasNext = messages[index + 1]?.direction === direction
 
-	if (hasPrev && hasNext) return BubblePosition.Middle
-	if (hasPrev) return BubblePosition.Bottom
-	if (hasNext) return BubblePosition.Upper
+	if (hasPrev && hasNext) {
+		return BubblePosition.Middle
+	}
+	if (hasPrev) {
+		return BubblePosition.Bottom
+	}
+	if (hasNext) {
+		return BubblePosition.Upper
+	}
 	return BubblePosition.Single
 }

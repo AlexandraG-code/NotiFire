@@ -26,7 +26,9 @@ export const useMessageStore = create<MessageState & MessageActions>()(
 			addMessage: (message) =>
 				set((state) => {
 					const messages = state.byChat[message.chatId] ?? []
-					if (messages.some((item) => item.id === message.id)) return state
+					if (messages.some((item) => item.id === message.id)) {
+						return state
+					}
 					return { byChat: { ...state.byChat, [message.chatId]: [...messages, message] } }
 				}),
 			updateMessage: (chatId, id, patch) =>

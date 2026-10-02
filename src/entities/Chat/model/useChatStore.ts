@@ -25,7 +25,9 @@ export const useChatStore = create<ChatState & ChatActions>()(
 			chats: [],
 			addChat: (newChat) => {
 				const existing = get().chats.find((chat) => chat.id === newChat.id)
-				if (existing) return existing
+				if (existing) {
+					return existing
+				}
 
 				const chat: Chat = { ...newChat, aliases: [], createdAt: Date.now() }
 				set((state) => ({ chats: [chat, ...state.chats] }))
