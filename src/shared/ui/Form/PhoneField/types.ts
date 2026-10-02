@@ -1,8 +1,14 @@
 import type { CountryCode } from 'libphonenumber-js'
 
+/**
+ * Страна в списке выбора кода.
+ * @property {CountryCode} code - ISO-код страны
+ * @property {string} dial - Телефонный код страны без «+»
+ * @property {string} flag - Флаг-эмодзи
+ * @property {string} name - Название страны на текущем языке
+ */
 export interface Country {
 	code: CountryCode
-	/** Телефонный код страны без «+». */
 	dial: string
 	flag: string
 	name: string

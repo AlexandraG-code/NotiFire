@@ -14,9 +14,6 @@
 		"today": "Today",
 		"yesterday": "Yesterday"
 	},
-	"errors": {
-		"unexpected": "Unexpected error"
-	},
 	"phoneField": {
 		"country": "Country",
 		"number": "Phone number"

@@ -8,12 +8,18 @@ export interface GreenApiCredentials {
 
 export type RequestParams = Record<string, string | number>
 
-/** Параметры вызова метода GREEN-API. */
+/**
+ * Параметры вызова метода GREEN-API.
+ * @property {HttpMethod} [httpMethod] - HTTP-метод; по умолчанию GET
+ * @property {unknown} [data] - Тело запроса
+ * @property {RequestParams} [params] - Параметры строки запроса
+ * @property {string | number} [pathSuffix] - Хвост пути после токена, например receiptId
+ * @property {AbortSignal} [signal] - Сигнал отмены запроса
+ */
 export interface CallOptions {
 	httpMethod?: HttpMethod
 	data?: unknown
 	params?: RequestParams
-	/** Хвост пути после токена, например receiptId. */
 	pathSuffix?: string | number
 	signal?: AbortSignal
 }

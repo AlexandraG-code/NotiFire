@@ -1,9 +1,15 @@
+/**
+ * Входящее текстовое сообщение, разобранное из уведомления.
+ * @property {string} id - Идентификатор сообщения в GREEN-API
+ * @property {string} apiChatId - chatId отправителя из уведомления
+ * @property {string} text - Текст сообщения
+ * @property {number} timestamp - Время в мс
+ * @property {string} [senderName] - Имя отправителя
+ */
 export interface IncomingMessage {
-	/** Идентификатор сообщения в GREEN-API. */
 	id: string
 	apiChatId: string
 	text: string
-	/** Время в мс. */
 	timestamp: number
 	senderName?: string
 }

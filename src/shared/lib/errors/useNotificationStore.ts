@@ -2,15 +2,22 @@ import { create } from 'zustand'
 
 import type { ErrorReport, NotificationItem } from './types'
 
+/**
+ * Состояние стора уведомлений.
+ * @property {NotificationItem[]} items - Очередь ошибок, которые ещё не показали пользователю
+ */
 interface NotificationState {
-	/** Очередь ошибок, которые ещё не показали пользователю. */
 	items: NotificationItem[]
 }
 
+/**
+ * Действия стора уведомлений.
+ * @property {Function} notifyError - Единая точка сообщения об ошибках: пишет в консоль и ставит ошибку в очередь на
+ * показ
+ * @property {Function} dismiss - Убирает ошибку из очереди после показа
+ */
 interface NotificationActions {
-	/** Единая точка сообщения об ошибках: пишет в консоль и ставит ошибку в очередь на показ. */
 	notifyError: (report: ErrorReport) => void
-	/** Убирает ошибку из очереди после показа. */
 	dismiss: (id: string) => void
 }
 

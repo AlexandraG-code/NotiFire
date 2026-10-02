@@ -16,8 +16,13 @@ interface AuthState {
 	credentials: GreenApiCredentials | null
 }
 
+/**
+ * Действия стора авторизации.
+ * @property {Function} login - Проверяет креды и сохраняет их в сторе; ошибку показывает пользователю сам, возвращает
+ * true, если вход выполнен
+ * @property {Function} logout - Выходит из аккаунта и стирает сохранённые чаты и сообщения
+ */
 interface AuthActions {
-	/** Проверяет креды и сохраняет их в сторе. Ошибку показывает пользователю сам; возвращает true, если вход выполнен. */
 	login: (credentials: GreenApiCredentials) => Promise<boolean>
 	logout: () => void
 }

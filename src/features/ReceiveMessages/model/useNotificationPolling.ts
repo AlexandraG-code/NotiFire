@@ -1,12 +1,8 @@
 import { useEffect } from 'react'
 
 import type { GreenApiCredentials } from '@shared/api/greenApi'
-import { sleep } from '@shared/lib'
 
-import { ReceiveMessagesService } from '../api/receiveMessages.service'
-
-import { RECEIVE_TIMEOUT_SECONDS, RETRY_DELAY_MS } from './constants'
-import { handleNotification } from './handleNotification'
+import { pollNotifications } from './pollNotifications'
 
 /**
  * Хук фонового получения уведомлений: долгий опрос receiveNotification, затем deleteNotification.
@@ -23,31 +19,9 @@ export const useNotificationPolling = (credentials: GreenApiCredentials | null):
 			return
 		}
 
-		const creds = { idInstance, apiTokenInstance }
 		const controller = new AbortController()
-		const { signal } = controller
+		void pollNotifications({ idInstance, apiTokenInstance }, controller.signal)
 
-		const poll = async () => {
-			while (!signal.aborted) {
-				try {
-					const notification = await ReceiveMessagesService.receiveNotification(creds, {
-						receiveTimeoutSeconds: RECEIVE_TIMEOUT_SECONDS,
-						signal
-					})
-
-					if (!notification) {
-						continue
-					}
-
-					handleNotification(notification.body)
-					await ReceiveMessagesService.deleteNotification(creds, notification.receiptId, signal)
-				} catch {
-					await sleep(RETRY_DELAY_MS, signal)
-				}
-			}
-		}
-
-		void poll()
 		return () => controller.abort()
 	}, [idInstance, apiTokenInstance])
 }

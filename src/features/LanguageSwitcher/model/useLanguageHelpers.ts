@@ -15,6 +15,16 @@ export const useLanguageHelpers = () => {
 
 	const currentLanguage = i18n.language
 
+	const languageMenuItems = useMemo<MenuProps['items']>(
+		() =>
+			Object.values(Language).map((language) => ({
+				key: language,
+				label: LANGUAGE_LABELS[language],
+				onClick: () => void i18n.changeLanguage(language)
+			})),
+		[i18n]
+	)
+
 	/**
 	 * Переключает язык: подгружает переводы выбранного языка и перерисовывает интерфейс.
 	 * @param {Language} language - Новый язык
@@ -25,16 +35,6 @@ export const useLanguageHelpers = () => {
 			void i18n.changeLanguage(language)
 		},
 		[i18n]
-	)
-
-	const languageMenuItems = useMemo<MenuProps['items']>(
-		() =>
-			Object.values(Language).map((language) => ({
-				key: language,
-				label: LANGUAGE_LABELS[language],
-				onClick: () => changeLanguage(language)
-			})),
-		[changeLanguage]
 	)
 
 	return { currentLanguage, changeLanguage, languageMenuItems }

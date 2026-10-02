@@ -1,8 +1,12 @@
-/** Описание ошибки для показа пользователю. */
+/**
+ * Описание ошибки для показа пользователю.
+ * @property {string} title - Заголовок уведомления
+ * @property {string} [description] - Подробности: текст, понятный пользователю
+ * @property {unknown} [cause] - Исходная ошибка: идёт в консоль для отладки
+ */
 export interface ErrorReport {
 	title: string
 	description?: string
-	/** Исходная ошибка: идёт в консоль для отладки. */
 	cause?: unknown
 }
 
@@ -14,9 +18,12 @@ export interface NotificationItem extends ErrorReport {
 /** Превращает пойманную ошибку в текст для пользователя. */
 export type ErrorDescriber = (error: unknown) => string | undefined
 
+/**
+ * Параметры runAsyncAction.
+ * @property {string} errorTitle - Заголовок уведомления, если действие упало
+ * @property {ErrorDescriber} [describeError] - Свой текст ошибки; по умолчанию берётся message самой ошибки
+ */
 export interface AsyncActionOptions {
-	/** Заголовок уведомления, если действие упало. */
 	errorTitle: string
-	/** Свой текст ошибки; по умолчанию берётся message самой ошибки. */
 	describeError?: ErrorDescriber
 }
