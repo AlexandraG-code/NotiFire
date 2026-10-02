@@ -1,17 +1,6 @@
-export enum GreenApiMethod {
-	GetStateInstance = 'getStateInstance',
-	SendMessage = 'sendMessage',
+export enum NotificationMethod {
 	ReceiveNotification = 'receiveNotification',
 	DeleteNotification = 'deleteNotification'
-}
-
-export enum StateInstance {
-	NotAuthorized = 'notAuthorized',
-	Authorized = 'authorized',
-	Blocked = 'blocked',
-	SleepMode = 'sleepMode',
-	Starting = 'starting',
-	YellowCard = 'yellowCard'
 }
 
 /** Тип уведомления в теле receiveNotification. */

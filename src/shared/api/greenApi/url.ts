@@ -1,4 +1,3 @@
-import type { GreenApiMethod } from './enums'
 import type { GreenApiCredentials } from './types'
 
 const SHARD_PLACEHOLDER = '{shard}'
@@ -16,13 +15,13 @@ export const getApiUrl = (idInstance: string): string =>
 /**
  * Полный URL метода: `{host}/waInstance{id}/{method}/{token}[/{suffix}]`.
  * @param {GreenApiCredentials} creds - Данные инстанса GREEN-API
- * @param {GreenApiMethod} method - Вызываемый метод
+ * @param {string} method - Имя вызываемого метода
  * @param {string | number} [pathSuffix] - Дополнительный сегмент пути, например receiptId
  * @returns {string} Адрес запроса
  */
 export const buildMethodUrl = (
 	{ idInstance, apiTokenInstance }: GreenApiCredentials,
-	method: GreenApiMethod,
+	method: string,
 	pathSuffix?: string | number
 ): string => {
 	const base = `${getApiUrl(idInstance)}/${INSTANCE_PREFIX}${idInstance}/${method}/${apiTokenInstance}`

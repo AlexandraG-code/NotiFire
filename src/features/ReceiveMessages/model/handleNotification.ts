@@ -1,5 +1,4 @@
-import type { NotificationBody } from '@shared/api/greenApi'
-
+import type { NotificationBody } from '../api/types'
 import { parseIncomingMessage } from '../lib/parseIncomingMessage'
 import { parseOutgoingConfirmation } from '../lib/parseOutgoingConfirmation'
 

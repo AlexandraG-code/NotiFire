@@ -1,5 +1,8 @@
-import { MS_IN_SECOND, type NotificationBody, TypeMessage, TypeWebhook, isGroupChatId } from '@shared/api/greenApi'
+import { isGroupChatId } from '@shared/api/greenApi'
 
+import { TypeMessage, TypeWebhook } from '../api/enums'
+import type { NotificationBody } from '../api/types'
+import { MS_IN_SECOND } from '../model/constants'
 import type { IncomingMessage } from '../model/types'
 
 /**

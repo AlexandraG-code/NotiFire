@@ -1,7 +1,10 @@
 import { isAxiosError } from 'axios'
 
 import { HttpStatus } from '@shared/api'
-import { type GreenApiCredentials, StateInstance, greenApi } from '@shared/api/greenApi'
+import { type GreenApiCredentials, callGreenApi } from '@shared/api/greenApi'
+
+import { AuthMethod, StateInstance } from './enums'
+import type { GetStateInstanceResponse } from './types'
 
 const INVALID_CREDENTIALS_STATUSES: number[] = [
 	HttpStatus.BadRequest,
@@ -9,6 +12,14 @@ const INVALID_CREDENTIALS_STATUSES: number[] = [
 	HttpStatus.Forbidden,
 	HttpStatus.NotFound
 ]
+
+/**
+ * Запрашивает состояние инстанса.
+ * @param {GreenApiCredentials} creds - Данные инстанса GREEN-API
+ * @returns {Promise<GetStateInstanceResponse>} Ответ getStateInstance
+ */
+const getStateInstance = (creds: GreenApiCredentials): Promise<GetStateInstanceResponse> =>
+	callGreenApi<GetStateInstanceResponse>(creds, AuthMethod.GetStateInstance)
 
 /**
  * Подбирает текст для пользователя по ошибке запроса.
@@ -27,7 +38,7 @@ const getErrorMessage = (error: unknown): string =>
  * @throws {Error} Если данные неверны, инстанс не авторизован или нет связи с API; message пригоден для показа
  */
 export const verifyCredentials = async (creds: GreenApiCredentials): Promise<void> => {
-	const { stateInstance } = await greenApi.getStateInstance(creds).catch((error: unknown) => {
+	const { stateInstance } = await getStateInstance(creds).catch((error: unknown) => {
 		throw new Error(getErrorMessage(error), { cause: error })
 	})
 

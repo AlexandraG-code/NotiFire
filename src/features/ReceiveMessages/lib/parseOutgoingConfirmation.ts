@@ -1,5 +1,7 @@
-import { type NotificationBody, TypeWebhook, isGroupChatId } from '@shared/api/greenApi'
+import { isGroupChatId } from '@shared/api/greenApi'
 
+import { TypeWebhook } from '../api/enums'
+import type { NotificationBody } from '../api/types'
 import type { OutgoingConfirmation } from '../model/types'
 
 /**

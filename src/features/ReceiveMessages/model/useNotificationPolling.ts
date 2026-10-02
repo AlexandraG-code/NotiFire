@@ -1,7 +1,9 @@
 import { useEffect } from 'react'
 
-import { type GreenApiCredentials, greenApi } from '@shared/api/greenApi'
+import type { GreenApiCredentials } from '@shared/api/greenApi'
 import { sleep } from '@shared/lib'
+
+import { deleteNotification, receiveNotification } from '../api/notifications.service'
 
 import { RECEIVE_TIMEOUT_SECONDS, RETRY_DELAY_MS } from './constants'
 import { handleNotification } from './handleNotification'
@@ -28,7 +30,7 @@ export const useNotificationPolling = (credentials: GreenApiCredentials | null):
 		const poll = async () => {
 			while (!signal.aborted) {
 				try {
-					const notification = await greenApi.receiveNotification(creds, {
+					const notification = await receiveNotification(creds, {
 						receiveTimeoutSeconds: RECEIVE_TIMEOUT_SECONDS,
 						signal
 					})
@@ -38,7 +40,7 @@ export const useNotificationPolling = (credentials: GreenApiCredentials | null):
 					}
 
 					handleNotification(notification.body)
-					await greenApi.deleteNotification(creds, notification.receiptId, signal)
+					await deleteNotification(creds, notification.receiptId, signal)
 				} catch {
 					await sleep(RETRY_DELAY_MS, signal)
 				}
