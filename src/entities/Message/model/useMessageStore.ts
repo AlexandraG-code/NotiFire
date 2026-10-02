@@ -8,13 +8,21 @@ interface MessageState {
 	byChat: Record<string, Message[]>
 }
 
+/**
+ * Действия стора сообщений.
+ * @property {Function} addMessage - Добавляет сообщение; если сообщение с таким id в чате уже есть, ничего не делает
+ * @property {Function} updateMessage - Меняет идентификатор и статус сообщения
+ * @property {Function} mergeMessages - Добавляет пачку сообщений (например, историю чата): пропускает уже известные и
+ * сортирует по времени
+ * @property {Function} reset - Удаляет все сообщения
+ * @property {Function} moveMessages - Переносит все сообщения одного чата в другой (при слиянии дублей), сохраняя
+ * порядок по времени
+ */
 interface MessageActions {
-	/** Добавляет сообщение; если сообщение с таким id в чате уже есть, ничего не делает. */
 	addMessage: (message: Message) => void
 	updateMessage: (chatId: string, id: string, patch: MessagePatch) => void
-	/** Удаляет все сообщения. */
+	mergeMessages: (chatId: string, messages: Message[]) => void
 	reset: () => void
-	/** Переносит все сообщения одного чата в другой (при слиянии дублей), сохраняя порядок по времени. */
 	moveMessages: (fromChatId: string, toChatId: string) => void
 }
 
@@ -40,6 +48,18 @@ export const useMessageStore = create<MessageState & MessageActions>()(
 						)
 					}
 				})),
+			mergeMessages: (chatId, messages) =>
+				set((state) => {
+					const existing = state.byChat[chatId] ?? []
+					const known = new Set(existing.map((message) => message.id))
+					const added = messages.filter((message) => !known.has(message.id))
+					if (added.length === 0) {
+						return state
+					}
+
+					const merged = [...existing, ...added].sort((a, b) => a.timestamp - b.timestamp)
+					return { byChat: { ...state.byChat, [chatId]: merged } }
+				}),
 			reset: () => set({ byChat: {} }),
 			moveMessages: (fromChatId, toChatId) =>
 				set((state) => {

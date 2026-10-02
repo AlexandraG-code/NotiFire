@@ -1,4 +1,6 @@
 export { ChatAvatar } from './ui/ChatAvatar'
+export { ChatService } from './api/chat.service'
 export { findChatByApiId } from './lib/findChatByApiId'
 export { useChatStore } from './model/useChatStore'
-export type { Chat, NewChat } from './model/types'
+export type { ContactInfo } from './api/types'
+export type { Chat, ChatPatch, NewChat } from './model/types'

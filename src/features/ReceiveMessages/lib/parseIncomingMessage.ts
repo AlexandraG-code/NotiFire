@@ -1,8 +1,7 @@
-import { isGroupChatId } from '@shared/api/greenApi'
+import { fromApiTimestamp, isGroupChatId } from '@shared/api/greenApi'
 
 import { TypeMessage, TypeWebhook } from '../api/enums'
 import type { NotificationBody } from '../api/types'
-import { MS_IN_SECOND } from '../model/constants'
 import type { IncomingMessage } from '../model/types'
 
 /**
@@ -33,6 +32,7 @@ export const parseIncomingMessage = (body: NotificationBody): IncomingMessage | 
 
 	const { senderData, idMessage, timestamp } = body
 	const text = extractText(body)
+
 	if (!senderData || !idMessage || !text || isGroupChatId(senderData.chatId)) {
 		return null
 	}
@@ -41,7 +41,7 @@ export const parseIncomingMessage = (body: NotificationBody): IncomingMessage | 
 		id: idMessage,
 		apiChatId: senderData.chatId,
 		text,
-		timestamp: (timestamp ?? Date.now() / MS_IN_SECOND) * MS_IN_SECOND,
+		timestamp: timestamp === undefined ? Date.now() : fromApiTimestamp(timestamp),
 		senderName: senderData.senderName
 	}
 }

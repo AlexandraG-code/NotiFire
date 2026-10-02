@@ -1,4 +1,3 @@
-export const MS_IN_SECOND = 1000
 export const RECEIVE_TIMEOUT_SECONDS = Number(window._env_.NOTIFICATION_RECEIVE_TIMEOUT_S)
 export const RETRY_DELAY_MS = Number(window._env_.NOTIFICATION_RETRY_DELAY_MS)
 

@@ -1,4 +1,4 @@
-import { CHAT_ID_PRIVATE_SUFFIX, GROUP_CHAT_ID_PREFIX } from './constants'
+import { CHAT_ID_PRIVATE_SUFFIX, GROUP_CHAT_ID_PREFIX, MS_IN_SECOND } from './constants'
 
 /**
  * Превращает номер телефона в chatId личного чата GREEN-API.
@@ -20,3 +20,10 @@ export const isGroupChatId = (chatId: string): boolean => chatId.startsWith(GROU
  * @returns {string} Номер телефона или числовой идентификатор
  */
 export const fromChatId = (chatId: string): string => chatId.replace(CHAT_ID_PRIVATE_SUFFIX, '')
+
+/**
+ * Переводит время из ответа GREEN-API (секунды) в миллисекунды.
+ * @param {number} seconds - Время в секундах, как его отдаёт API
+ * @returns {number} Время в миллисекундах
+ */
+export const fromApiTimestamp = (seconds: number): number => seconds * MS_IN_SECOND

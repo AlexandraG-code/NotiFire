@@ -24,7 +24,7 @@ export const ChatListItem = ({ chat, lastMessage }: ChatListItemProps) => {
 			to={generatePath(AppRoute.Chat, { chatId: chat.id })}
 			className={({ isActive }) => `${styles.item} ${isActive ? styles.active : ''}`}
 		>
-			<ChatAvatar title={chat.title} />
+			<ChatAvatar title={chat.title} src={chat.avatarUrl} />
 			<div className={styles.body}>
 				<div className={styles.top}>
 					<span className={styles.title}>{chat.title}</span>

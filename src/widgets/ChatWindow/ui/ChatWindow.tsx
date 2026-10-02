@@ -4,6 +4,7 @@ import { Button } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
+import { useChatSync } from '@features/ChatSync'
 import { MessageComposer, useSendMessage } from '@features/SendMessage'
 
 import { ChatAvatar } from '@entities/Chat'
@@ -29,6 +30,7 @@ export const ChatWindow = ({ chat, credentials }: ChatWindowProps) => {
 	const { t } = useTranslation(Namespace.Chat)
 
 	const { send, retry } = useSendMessage(chat, credentials)
+	useChatSync(chat, credentials)
 
 	return (
 		<ChatBackground>
@@ -41,7 +43,7 @@ export const ChatWindow = ({ chat, credentials }: ChatWindowProps) => {
 					icon={<ArrowLeftOutlined />}
 					onClick={() => navigate(AppRoute.Root)}
 				/>
-				<ChatAvatar title={chat.title} size={HEADER_AVATAR_SIZE} />
+				<ChatAvatar title={chat.title} src={chat.avatarUrl} size={HEADER_AVATAR_SIZE} />
 				<h2 className={styles.title}>{chat.title}</h2>
 			</header>
 			<MessageList chatId={chat.id} onRetry={retry} />

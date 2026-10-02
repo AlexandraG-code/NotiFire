@@ -2,19 +2,25 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
 import { CHAT_STORAGE_KEY, CHAT_STORAGE_VERSION } from './constants'
-import type { Chat, NewChat } from './types'
+import type { Chat, ChatPatch, NewChat } from './types'
 
 interface ChatState {
 	chats: Chat[]
 }
 
+/**
+ * Действия стора чатов.
+ * @property {Function} addChat - Создаёт чат или возвращает уже существующий с тем же id
+ * @property {Function} addAlias - Добавляет чату дополнительный chatId собеседника
+ * @property {Function} updateChat - Обновляет название и аватар чата
+ * @property {Function} removeChat - Удаляет чат
+ * @property {Function} reset - Удаляет все чаты
+ */
 interface ChatActions {
-	/** Создаёт чат или возвращает уже существующий с тем же id. */
 	addChat: (chat: NewChat) => Chat
-	/** Добавляет чату дополнительный chatId собеседника. */
 	addAlias: (id: string, apiChatId: string) => void
+	updateChat: (id: string, patch: ChatPatch) => void
 	removeChat: (id: string) => void
-	/** Удаляет все чаты. */
 	reset: () => void
 }
 
@@ -41,6 +47,8 @@ export const useChatStore = create<ChatState & ChatActions>()(
 							: chat
 					)
 				})),
+			updateChat: (id, patch) =>
+				set((state) => ({ chats: state.chats.map((chat) => (chat.id === id ? { ...chat, ...patch } : chat)) })),
 			removeChat: (id) => set((state) => ({ chats: state.chats.filter((chat) => chat.id !== id) })),
 			reset: () => set({ chats: [] })
 		}),
