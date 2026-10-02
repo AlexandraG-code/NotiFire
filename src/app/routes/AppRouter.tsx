@@ -1,4 +1,4 @@
-import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { Navigate, RouterProvider, createHashRouter } from 'react-router-dom'
 
 import { AppRoute } from '@shared/config'
 import { Namespace, loadNamespaces } from '@shared/i18n'
@@ -11,7 +11,7 @@ const loadChatView = async () => {
 	return { Component: ChatView }
 }
 
-const router = createBrowserRouter([
+const router = createHashRouter([
 	{
 		path: AppRoute.Login,
 		loader: redirectIfAuth,
@@ -36,7 +36,8 @@ const router = createBrowserRouter([
 ])
 
 /**
- * Роутер приложения: страница входа и защищённые маршруты чата.
+ * Роутер приложения: страница входа и защищённые маршруты чата. Маршруты хранятся в части адреса после `#`,
+ * поэтому приложение работает на статическом хостинге (GitHub Pages) без настройки перенаправлений.
  * @returns {JSX.Element} Провайдер роутера
  */
 export const AppRouter = () => <RouterProvider router={router} />
