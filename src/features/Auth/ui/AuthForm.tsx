@@ -28,8 +28,11 @@ export const AuthForm = ({ messenger }: AuthFormProps) => {
 	const { t } = useTranslation(Namespace.Auth)
 
 	const restoreDraft = useCallback(() => {
-		form.resetFields()
-		form.setFieldsValue(drafts.current[messenger] ?? {})
+		const draft = drafts.current[messenger]
+		form.setFields([
+			{ name: 'idInstance', value: draft?.idInstance ?? '', errors: [] },
+			{ name: 'apiTokenInstance', value: draft?.apiTokenInstance ?? '', errors: [] }
+		])
 	}, [form, messenger])
 
 	useEffect(() => {
@@ -60,14 +63,14 @@ export const AuthForm = ({ messenger }: AuthFormProps) => {
 				label="idInstance"
 				rules={[{ required: true, whitespace: true, message: t('form.enterIdInstance') }]}
 			>
-				<Input allowClear />
+				<Input allowClear autoComplete="off" />
 			</Form.Item>
 			<Form.Item
 				name="apiTokenInstance"
 				label="apiTokenInstance"
 				rules={[{ required: true, whitespace: true, message: t('form.enterApiToken') }]}
 			>
-				<Input.Password allowClear />
+				<Input.Password allowClear autoComplete="new-password" />
 			</Form.Item>
 			<Button type="primary" htmlType="submit" loading={loading} block>
 				{t('form.submit')}
