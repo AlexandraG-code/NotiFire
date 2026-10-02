@@ -25,3 +25,7 @@ dist-ssr
 
 # runtime-конфиг: создаётся из env-config.ts.sample
 /env-config.ts
+
+# Результаты тестов
+test-results
+playwright-report

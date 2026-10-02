@@ -4,7 +4,7 @@ import { readFileSync } from 'fs'
 import { resolve } from 'path'
 import { type Plugin, defineConfig } from 'vite'
 
-const ENV_CONFIG_SOURCE = resolve(__dirname, 'env-config.ts')
+const ENV_CONFIG_SOURCE = resolve(import.meta.dirname, 'env-config.ts')
 const ENV_CONFIG_URL = '/env-config.js'
 
 /**
@@ -36,12 +36,12 @@ export default defineConfig({
 	plugins: [react(), runtimeEnvConfig()],
 	resolve: {
 		alias: {
-			'@app': resolve(__dirname, './src/app'),
-			'@pages': resolve(__dirname, './src/pages'),
-			'@widgets': resolve(__dirname, './src/widgets'),
-			'@features': resolve(__dirname, './src/features'),
-			'@entities': resolve(__dirname, './src/entities'),
-			'@shared': resolve(__dirname, './src/shared')
+			'@app': resolve(import.meta.dirname, './src/app'),
+			'@pages': resolve(import.meta.dirname, './src/pages'),
+			'@widgets': resolve(import.meta.dirname, './src/widgets'),
+			'@features': resolve(import.meta.dirname, './src/features'),
+			'@entities': resolve(import.meta.dirname, './src/entities'),
+			'@shared': resolve(import.meta.dirname, './src/shared')
 		}
 	}
 })
