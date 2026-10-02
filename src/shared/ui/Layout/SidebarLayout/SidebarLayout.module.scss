@@ -17,14 +17,14 @@
 	min-width: 0;
 }
 
-// Узкое окно: показывается что-то одно — список чатов (/) или диалог (/chat/:id)
+// Узкое окно: показывается что-то одно — боковая панель или содержимое
 @include narrow {
 	.sidebarPane {
 		width: 100%;
 	}
 
-	.layout[data-chat-open='true'] .sidebarPane,
-	.layout[data-chat-open='false'] .contentPane {
+	.layout[data-content-open='true'] .sidebarPane,
+	.layout[data-content-open='false'] .contentPane {
 		display: none;
 	}
 }

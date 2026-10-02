@@ -6,3 +6,7 @@ export interface UseSendMessageResult {
 	/** Повторно отправляет сообщение, которое не удалось отправить. */
 	retry: (message: Message) => Promise<void>
 }
+
+export interface MessageComposerProps {
+	onSend: (text: string) => void
+}

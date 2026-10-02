@@ -1,5 +1,8 @@
 import { CheckOutlined, ClockCircleOutlined } from '@ant-design/icons'
 
+import { useTranslation } from 'react-i18next'
+
+import { Namespace } from '@shared/i18n'
 import { formatTime } from '@shared/lib'
 
 import { BubblePosition, MessageDirection, MessageStatus } from '../model/enums'
@@ -15,6 +18,8 @@ import type { MessageBubbleProps } from './types'
  * @returns {JSX.Element} Пузырь сообщения
  */
 export const MessageBubble = ({ message, position = BubblePosition.Single, onRetry }: MessageBubbleProps) => {
+	const { t } = useTranslation(Namespace.Chat)
+
 	const isOutgoing = message.direction === MessageDirection.Outgoing
 
 	return (
@@ -24,7 +29,7 @@ export const MessageBubble = ({ message, position = BubblePosition.Single, onRet
 				<span className={styles.meta}>
 					{message.status === MessageStatus.Failed && (
 						<button type="button" className={styles.retry} onClick={() => onRetry?.(message)}>
-							Не отправлено · Повторить
+							{t('messages.retry')}
 						</button>
 					)}
 					<span className={styles.time}>{formatTime(message.timestamp)}</span>

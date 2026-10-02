@@ -3,7 +3,7 @@ import { type GreenApiCredentials, callGreenApi } from '@shared/api/greenApi'
 import { AuthMethod } from './enums'
 import type { GetStateInstanceResponse } from './types'
 
-/** Вызовы API авторизации */
+/** Вызовы API авторизации: только запросы, без проверок и сообщений пользователю. */
 export const AuthService = {
 	/**
 	 * Запрашивает состояние инстанса.

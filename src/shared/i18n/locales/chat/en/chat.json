@@ -1,0 +1,24 @@
+{
+	"sidebar": {
+		"title": "Chats",
+		"newChat": "New chat",
+		"empty": "Create your first chat with the “+” button",
+		"noMessages": "No messages"
+	},
+	"window": {
+		"backToList": "Back to chats"
+	},
+	"messages": {
+		"empty": "No messages yet. Write first",
+		"retry": "Not sent · Retry"
+	},
+	"composer": {
+		"placeholder": "Message",
+		"send": "Send"
+	},
+	"emptyChat": "Select a chat or create a new one",
+	"createChat": {
+		"title": "New chat",
+		"submit": "Start chat"
+	}
+}

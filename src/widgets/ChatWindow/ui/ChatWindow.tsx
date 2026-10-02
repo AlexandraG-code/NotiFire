@@ -1,6 +1,7 @@
 import { ArrowLeftOutlined } from '@ant-design/icons'
 
 import { Button } from 'antd'
+import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
 import { MessageComposer, useSendMessage } from '@features/SendMessage'
@@ -8,6 +9,7 @@ import { MessageComposer, useSendMessage } from '@features/SendMessage'
 import { ChatAvatar } from '@entities/Chat'
 
 import { AppRoute } from '@shared/config'
+import { Namespace } from '@shared/i18n'
 import { ChatBackground } from '@shared/ui'
 
 import styles from './ChatWindow.module.scss'
@@ -24,6 +26,7 @@ const HEADER_AVATAR_SIZE = 40
  */
 export const ChatWindow = ({ chat, credentials }: ChatWindowProps) => {
 	const navigate = useNavigate()
+	const { t } = useTranslation(Namespace.Chat)
 
 	const { send, retry } = useSendMessage(chat, credentials)
 
@@ -34,7 +37,7 @@ export const ChatWindow = ({ chat, credentials }: ChatWindowProps) => {
 					className={styles.back}
 					type="text"
 					shape="circle"
-					aria-label="К списку чатов"
+					aria-label={t('window.backToList')}
 					icon={<ArrowLeftOutlined />}
 					onClick={() => navigate(AppRoute.Root)}
 				/>

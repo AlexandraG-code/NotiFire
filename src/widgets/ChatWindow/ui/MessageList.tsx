@@ -1,8 +1,11 @@
 import { useEffect, useMemo, useRef } from 'react'
 
+import { useTranslation } from 'react-i18next'
+
 import { MessageBubble, useMessageStore } from '@entities/Message'
 import type { Message } from '@entities/Message'
 
+import { Namespace } from '@shared/i18n'
 import { formatDay } from '@shared/lib'
 
 import { getBubblePosition } from '../lib/getBubblePosition'
@@ -23,6 +26,7 @@ export const MessageList = ({ chatId, onRetry }: MessageListProps) => {
 	const messages = useMessageStore((state) => state.byChat[chatId] ?? NO_MESSAGES)
 
 	const endRef = useRef<HTMLDivElement>(null)
+	const { t } = useTranslation(Namespace.Chat)
 
 	const groups = useMemo(() => groupMessagesByDay(messages), [messages])
 
@@ -32,7 +36,7 @@ export const MessageList = ({ chatId, onRetry }: MessageListProps) => {
 
 	return (
 		<div className={styles.list}>
-			{messages.length === 0 && <div className={styles.empty}>Сообщений пока нет. Напишите первым</div>}
+			{messages.length === 0 && <div className={styles.empty}>{t('messages.empty')}</div>}
 			{groups.map((group) => (
 				<section key={group.day}>
 					<div className={styles.dayRow}>

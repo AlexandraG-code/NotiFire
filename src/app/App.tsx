@@ -1,3 +1,7 @@
+import { Suspense } from 'react'
+
+import '@shared/i18n'
+
 import { ErrorNotifier } from './providers/ErrorNotifier'
 import { ThemeProvider } from './providers/ThemeProvider'
 import { AppRouter } from './routes/AppRouter'
@@ -8,9 +12,11 @@ import { AppRouter } from './routes/AppRouter'
  */
 export function App() {
 	return (
-		<ThemeProvider>
-			<ErrorNotifier />
-			<AppRouter />
-		</ThemeProvider>
+		<Suspense fallback={null}>
+			<ThemeProvider>
+				<ErrorNotifier />
+				<AppRouter />
+			</ThemeProvider>
+		</Suspense>
 	)
 }

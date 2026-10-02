@@ -6,7 +6,7 @@ import { type CountryCode, isValidPhoneNumber, parsePhoneNumberFromString } from
 const PLUS_SIGN_LENGTH = 1
 
 /**
- * Небольшие утилиты создания чата, собранные в одном хуке.
+ * Небольшие утилиты создания чата.
  * @returns {{ buildPhone: Function, isPhoneValid: Function }} Функции для работы с введённым номером
  */
 export const useCreateChatHelpers = () => {

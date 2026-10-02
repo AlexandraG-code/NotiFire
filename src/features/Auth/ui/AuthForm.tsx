@@ -1,10 +1,12 @@
 import { useState } from 'react'
 
 import { Button, Form, Input } from 'antd'
+import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
 import type { GreenApiCredentials } from '@shared/api/greenApi'
 import { AppRoute } from '@shared/config'
+import { Namespace } from '@shared/i18n'
 
 import { useAuthStore } from '../model/useAuthStore'
 
@@ -19,6 +21,7 @@ export const AuthForm = () => {
 
 	const [form] = Form.useForm<GreenApiCredentials>()
 	const navigate = useNavigate()
+	const { t } = useTranslation(Namespace.Auth)
 
 	const onFinish = async (values: GreenApiCredentials) => {
 		setLoading(true)
@@ -28,7 +31,9 @@ export const AuthForm = () => {
 		})
 		setLoading(false)
 
-		if (isLoggedIn) navigate(AppRoute.Root, { replace: true })
+		if (isLoggedIn) {
+			navigate(AppRoute.Root, { replace: true })
+		}
 	}
 
 	return (
@@ -36,19 +41,19 @@ export const AuthForm = () => {
 			<Form.Item
 				name="idInstance"
 				label="idInstance"
-				rules={[{ required: true, whitespace: true, message: 'Введите idInstance' }]}
+				rules={[{ required: true, whitespace: true, message: t('form.enterIdInstance') }]}
 			>
 				<Input autoComplete="off" />
 			</Form.Item>
 			<Form.Item
 				name="apiTokenInstance"
 				label="apiTokenInstance"
-				rules={[{ required: true, whitespace: true, message: 'Введите apiTokenInstance' }]}
+				rules={[{ required: true, whitespace: true, message: t('form.enterApiToken') }]}
 			>
 				<Input.Password autoComplete="off" />
 			</Form.Item>
 			<Button type="primary" htmlType="submit" loading={loading} block>
-				Войти
+				{t('form.submit')}
 			</Button>
 		</Form>
 	)

@@ -3,9 +3,13 @@ import { SendOutlined } from '@ant-design/icons'
 import { type KeyboardEvent, useState } from 'react'
 
 import { Button, Input } from 'antd'
+import { useTranslation } from 'react-i18next'
+
+import { Namespace } from '@shared/i18n'
+
+import type { MessageComposerProps } from '../model/types.ts'
 
 import styles from './MessageComposer.module.scss'
-import type { MessageComposerProps } from './types'
 
 const MAX_ROWS = 6
 
@@ -16,6 +20,8 @@ const MAX_ROWS = 6
  */
 export const MessageComposer = ({ onSend }: MessageComposerProps) => {
 	const [text, setText] = useState('')
+
+	const { t } = useTranslation(Namespace.Chat)
 
 	const trimmed = text.trim()
 
@@ -45,7 +51,7 @@ export const MessageComposer = ({ onSend }: MessageComposerProps) => {
 					autoFocus
 					variant="borderless"
 					value={text}
-					placeholder="Сообщение"
+					placeholder={t('composer.placeholder')}
 					autoSize={{ minRows: 1, maxRows: MAX_ROWS }}
 					onChange={(event) => setText(event.target.value)}
 					onKeyDown={handleKeyDown}
@@ -54,7 +60,7 @@ export const MessageComposer = ({ onSend }: MessageComposerProps) => {
 					type="primary"
 					shape="circle"
 					size="large"
-					aria-label="Отправить"
+					aria-label={t('composer.send')}
 					icon={<SendOutlined />}
 					disabled={!trimmed}
 					onClick={submit}

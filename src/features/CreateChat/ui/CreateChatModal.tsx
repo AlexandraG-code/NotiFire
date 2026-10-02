@@ -1,20 +1,22 @@
 import { Button, Form, Modal } from 'antd'
+import { useTranslation } from 'react-i18next'
 import { generatePath, useNavigate } from 'react-router-dom'
 
 import { useChatStore } from '@entities/Chat'
 
 import { toChatId } from '@shared/api/greenApi'
 import { AppRoute } from '@shared/config'
+import { Namespace } from '@shared/i18n'
+import { DEFAULT_COUNTRY, PhoneField } from '@shared/ui'
 
-import { DEFAULT_COUNTRY } from '../model/countries'
+import type { CreateChatFormValues } from '../model/types'
 import { useCreateChatHelpers } from '../model/useCreateChatHelpers'
 
 import styles from './CreateChatModal.module.scss'
-import { PhoneField } from './PhoneField'
-import type { CreateChatFormValues, CreateChatModalProps } from './types'
+import type { CreateChatModalProps } from './types'
 
 const MODAL_WIDTH = 420
-const INITIAL_VALUES: CreateChatFormValues = { country: DEFAULT_COUNTRY, number: '' }
+const INITIAL_VALUES: CreateChatFormValues = { phone: { country: DEFAULT_COUNTRY, number: '' } }
 
 /**
  * Модальное окно создания чата по номеру телефона; после создания открывает чат.
@@ -26,14 +28,14 @@ export const CreateChatModal = ({ open, onClose }: CreateChatModalProps) => {
 	const addChat = useChatStore((state) => state.addChat)
 
 	const [form] = Form.useForm<CreateChatFormValues>()
-	const country = Form.useWatch('country', form) ?? DEFAULT_COUNTRY
-	const number = Form.useWatch('number', form)
+	const phoneValue = Form.useWatch('phone', form) ?? INITIAL_VALUES.phone
 	const navigate = useNavigate()
+	const { t } = useTranslation(Namespace.Chat)
 
 	const { buildPhone, isPhoneValid } = useCreateChatHelpers()
 
 	const handleFinish = (values: CreateChatFormValues) => {
-		const phone = buildPhone(values.country, values.number)
+		const phone = buildPhone(values.phone.country, values.phone.number)
 		const chat = addChat({ id: phone, apiChatId: toChatId(phone), title: `+${phone}` })
 		onClose()
 		navigate(generatePath(AppRoute.Chat, { chatId: chat.id }))
@@ -42,7 +44,7 @@ export const CreateChatModal = ({ open, onClose }: CreateChatModalProps) => {
 	return (
 		<Modal
 			open={open}
-			title="Новый чат"
+			title={t('createChat.title')}
 			width={MODAL_WIDTH}
 			footer={null}
 			centered
@@ -51,15 +53,17 @@ export const CreateChatModal = ({ open, onClose }: CreateChatModalProps) => {
 			destroyOnHidden
 		>
 			<Form form={form} initialValues={INITIAL_VALUES} onFinish={handleFinish}>
-				<PhoneField />
+				<Form.Item name="phone" noStyle>
+					<PhoneField />
+				</Form.Item>
 				<Button
 					className={styles.submit}
 					type="primary"
 					htmlType="submit"
 					block
-					disabled={!isPhoneValid(country, number)}
+					disabled={!isPhoneValid(phoneValue.country, phoneValue.number)}
 				>
-					Начать чат
+					{t('createChat.submit')}
 				</Button>
 			</Form>
 		</Modal>

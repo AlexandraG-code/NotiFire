@@ -1,9 +1,5 @@
-import type { CountryCode } from 'libphonenumber-js'
+import type { PhoneFieldValue } from '@shared/ui'
 
-export interface Country {
-	code: CountryCode
-	/** Телефонный код страны без «+». */
-	dial: string
-	flag: string
-	name: string
+export interface CreateChatFormValues {
+	phone: PhoneFieldValue
 }

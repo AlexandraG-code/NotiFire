@@ -1,3 +1,3 @@
-export { ThemeSwitch } from './ui/ThemeSwitch'
+export { ThemeSwitcher } from './ui/ThemeSwitcher'
 export { useThemeStore } from './model/useThemeStore'
 export { useThemeToggle } from './model/useThemeToggle'

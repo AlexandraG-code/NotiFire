@@ -3,10 +3,10 @@ import { useEffect } from 'react'
 import { App as AntdApp } from 'antd'
 import { isCancel } from 'axios'
 
+import { i18n } from '@shared/i18n'
 import { getErrorMessage, useNotificationStore } from '@shared/lib'
 
 const UNHANDLED_REJECTION_EVENT = 'unhandledrejection'
-const UNEXPECTED_ERROR_TITLE = 'Непредвиденная ошибка'
 const ABORT_ERROR_NAME = 'AbortError'
 
 /**
@@ -40,9 +40,11 @@ export const ErrorNotifier = () => {
 
 	useEffect(() => {
 		const handleRejection = (event: PromiseRejectionEvent) => {
-			if (isIntentionalAbort(event.reason)) return
+			if (isIntentionalAbort(event.reason)) {
+				return
+			}
 			notifyError({
-				title: UNEXPECTED_ERROR_TITLE,
+				title: i18n.t('errors.unexpected'),
 				description: getErrorMessage(event.reason),
 				cause: event.reason
 			})

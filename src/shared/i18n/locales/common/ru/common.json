@@ -1,0 +1,24 @@
+{
+	"settings": {
+		"title": "Настройки",
+		"lightTheme": "Светлая тема",
+		"darkTheme": "Тёмная тема",
+		"language": "Язык",
+		"logout": "Выйти"
+	},
+	"theme": {
+		"switchToLight": "Включить светлую тему",
+		"switchToDark": "Включить тёмную тему"
+	},
+	"date": {
+		"today": "Сегодня",
+		"yesterday": "Вчера"
+	},
+	"errors": {
+		"unexpected": "Непредвиденная ошибка"
+	},
+	"phoneField": {
+		"country": "Страна",
+		"number": "Номер телефона"
+	}
+}
