@@ -1,4 +1,4 @@
-export { getErrorMessage, reportError, runAsyncAction, setErrorListener } from './errors'
+export { getErrorMessage, runAsyncAction, useNotificationStore } from './errors'
 export type { ErrorReport } from './errors'
 export { formatDay } from './formatDay'
 export { formatTime } from './formatTime'

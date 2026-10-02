@@ -1,13 +1,15 @@
+import { isAxiosError } from 'axios'
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 
 import type { GreenApiCredentials } from '@shared/api/greenApi'
-import { runAsyncAction } from '@shared/lib'
+import { getErrorMessage, runAsyncAction } from '@shared/lib'
 
-import { verifyCredentials } from '../api/auth.service'
+import { AuthService } from '../api/auth.service'
+import { StateInstance } from '../api/enums'
 
 import { claimChatData, wipeChatData } from './chatData'
-import { AUTH_STORAGE_KEY } from './constants'
+import { AUTH_STORAGE_KEY, INVALID_CREDENTIALS_STATUSES } from './constants'
 
 interface AuthState {
 	isAuthorized: boolean
@@ -25,6 +27,22 @@ const initial: AuthState = {
 	credentials: null
 }
 
+/**
+ * Подбирает текст ошибки входа: отказ API по данным, нет связи или собственное сообщение проверки.
+ * @param {unknown} error - Ошибка запроса или проверки
+ * @returns {string | undefined} Текст для пользователя
+ */
+const describeLoginError = (error: unknown): string | undefined => {
+	if (!isAxiosError(error)) {
+		return getErrorMessage(error)
+	}
+
+	const status = error.response?.status
+	return status !== undefined && INVALID_CREDENTIALS_STATUSES.includes(status)
+		? 'Неверный idInstance или apiTokenInstance'
+		: 'Не удалось связаться с GREEN-API'
+}
+
 /** Стор авторизации; креды хранятся в sessionStorage до закрытия вкладки. */
 export const useAuthStore = create<AuthState & AuthActions>()(
 	persist(
@@ -33,11 +51,15 @@ export const useAuthStore = create<AuthState & AuthActions>()(
 			login: (credentials) =>
 				runAsyncAction(
 					async () => {
-						await verifyCredentials(credentials)
+						const { stateInstance } = await AuthService.getStateInstance(credentials)
+						if (stateInstance !== StateInstance.Authorized) {
+							throw new Error(`Инстанс не авторизован (состояние: ${stateInstance})`)
+						}
+
 						claimChatData(credentials.idInstance)
 						set({ isAuthorized: true, credentials })
 					},
-					{ errorTitle: 'Не удалось войти' }
+					{ errorTitle: 'Не удалось войти', describeError: describeLoginError }
 				),
 			logout: () => {
 				wipeChatData()

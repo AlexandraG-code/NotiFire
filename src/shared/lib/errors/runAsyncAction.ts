@@ -1,23 +1,27 @@
-import { reportError } from './errorReporter'
 import { getErrorMessage } from './getErrorMessage'
 import type { AsyncActionOptions } from './types'
+import { useNotificationStore } from './useNotificationStore'
 
 /**
  * Выполняет асинхронное действие стора и сам ловит ошибки: вызывающему не нужен try/catch.
- * При ошибке сообщает о ней через reportError.
+ * При ошибке сообщает о ней стору уведомлений.
  * @param {Function} action - Асинхронное действие
- * @param {AsyncActionOptions} options - Заголовок уведомления об ошибке
+ * @param {AsyncActionOptions} options - Заголовок уведомления и, при необходимости, свой текст ошибки
  * @returns {Promise<boolean>} true, если действие выполнилось, и false, если упало
  */
 export const runAsyncAction = async (
 	action: () => Promise<void>,
-	{ errorTitle }: AsyncActionOptions
+	{ errorTitle, describeError = getErrorMessage }: AsyncActionOptions
 ): Promise<boolean> => {
 	try {
 		await action()
 		return true
 	} catch (error) {
-		reportError({ title: errorTitle, description: getErrorMessage(error), cause: error })
+		useNotificationStore.getState().notifyError({
+			title: errorTitle,
+			description: describeError(error),
+			cause: error
+		})
 		return false
 	}
 }

@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { App as AntdApp } from 'antd'
 import { isCancel } from 'axios'
 
-import { getErrorMessage, reportError, setErrorListener } from '@shared/lib'
+import { getErrorMessage, useNotificationStore } from '@shared/lib'
 
 const UNHANDLED_REJECTION_EVENT = 'unhandledrejection'
 const UNEXPECTED_ERROR_TITLE = 'Непредвиденная ошибка'
@@ -18,23 +18,30 @@ const isIntentionalAbort = (reason: unknown): boolean =>
 	isCancel(reason) || (reason instanceof Error && reason.name === ABORT_ERROR_NAME)
 
 /**
- * Единственное место, где ошибки показываются пользователю: подписывается на reportError и выводит уведомление antd.
- * Заодно перехватывает необработанные отклонения промисов. Чтобы вместо уведомлений показывать окно ошибок,
- * достаточно изменить только этот компонент. Должен находиться внутри ThemeProvider.
+ * Единственное место, где ошибки показываются пользователю: берёт их из стора уведомлений и выводит
+ * уведомление antd. Заодно перехватывает необработанные отклонения промисов. Чтобы вместо уведомлений показывать
+ * окно ошибок, достаточно изменить только этот компонент. Должен находиться внутри ThemeProvider.
  * @returns {null} Ничего не рисует
  */
 export const ErrorNotifier = () => {
+	const items = useNotificationStore((state) => state.items)
+	const notifyError = useNotificationStore((state) => state.notifyError)
+	const dismiss = useNotificationStore((state) => state.dismiss)
+
 	const { notification } = AntdApp.useApp()
 
 	useEffect(() => {
-		setErrorListener(({ title, description }) =>
+		items.forEach(({ id, title, description }) => {
 			// key: одинаковые ошибки подряд заменяют друг друга, а не копятся стопкой
 			notification.error({ key: `${title}:${description}`, message: title, description })
-		)
+			dismiss(id)
+		})
+	}, [items, notification, dismiss])
 
+	useEffect(() => {
 		const handleRejection = (event: PromiseRejectionEvent) => {
 			if (isIntentionalAbort(event.reason)) return
-			reportError({
+			notifyError({
 				title: UNEXPECTED_ERROR_TITLE,
 				description: getErrorMessage(event.reason),
 				cause: event.reason
@@ -42,11 +49,8 @@ export const ErrorNotifier = () => {
 		}
 		window.addEventListener(UNHANDLED_REJECTION_EVENT, handleRejection)
 
-		return () => {
-			setErrorListener(null)
-			window.removeEventListener(UNHANDLED_REJECTION_EVENT, handleRejection)
-		}
-	}, [notification])
+		return () => window.removeEventListener(UNHANDLED_REJECTION_EVENT, handleRejection)
+	}, [notifyError])
 
 	return null
 }

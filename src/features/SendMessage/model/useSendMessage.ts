@@ -3,7 +3,7 @@ import { type Message, MessageDirection, MessageStatus, useMessageStore } from '
 
 import type { GreenApiCredentials } from '@shared/api/greenApi'
 
-import { sendMessage } from '../api/sendMessage.service'
+import { SendMessageService } from '../api/sendMessage.service'
 
 import type { UseSendMessageResult } from './types'
 
@@ -19,7 +19,10 @@ export const useSendMessage = (chat: Chat, credentials: GreenApiCredentials): Us
 
 	const deliver = async (localId: string, text: string) => {
 		try {
-			const { idMessage } = await sendMessage(credentials, { chatId: chat.apiChatId, message: text })
+			const { idMessage } = await SendMessageService.sendMessage(credentials, {
+				chatId: chat.apiChatId,
+				message: text
+			})
 			updateMessage(chat.id, localId, { id: idMessage, status: MessageStatus.Sent })
 		} catch {
 			updateMessage(chat.id, localId, { status: MessageStatus.Failed })
