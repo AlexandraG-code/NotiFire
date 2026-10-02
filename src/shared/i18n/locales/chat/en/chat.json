@@ -6,7 +6,8 @@
 		"noMessages": "No messages"
 	},
 	"window": {
-		"backToList": "Back to chats"
+		"backToList": "Back to chats",
+		"loadingHistory": "Loading chat history"
 	},
 	"messages": {
 		"empty": "No messages yet. Write first",

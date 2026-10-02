@@ -6,7 +6,8 @@
 		"noMessages": "Нет сообщений"
 	},
 	"window": {
-		"backToList": "К списку чатов"
+		"backToList": "К списку чатов",
+		"loadingHistory": "Загружается история чата"
 	},
 	"messages": {
 		"empty": "Сообщений пока нет. Напишите первым",

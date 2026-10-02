@@ -7,6 +7,7 @@ import { type GreenApiCredentials, fromChatId } from '@shared/api/greenApi'
 
 import { HISTORY_MESSAGE_COUNT } from './constants'
 import { useChatSyncHelpers } from './useChatSyncHelpers'
+import { useChatSyncStore } from './useChatSyncStore'
 
 /** Чаты, которые уже синхронизировались в этой сессии: повторное открытие не гоняет запросы. */
 const syncedChats = new Set<string>()
@@ -17,12 +18,14 @@ const syncedChats = new Set<string>()
  * чат остаётся таким, какой есть.
  * @param {Chat} chat - Открытый чат
  * @param {GreenApiCredentials} credentials - Данные инстанса GREEN-API
- * @returns {void}
+ * @returns {boolean} Идёт ли сейчас загрузка профиля и истории
  */
-export const useChatSync = (chat: Chat, credentials: GreenApiCredentials): void => {
+export const useChatSync = (chat: Chat, credentials: GreenApiCredentials): boolean => {
 	const addAlias = useChatStore((state) => state.addAlias)
 	const updateChat = useChatStore((state) => state.updateChat)
 	const mergeMessages = useMessageStore((state) => state.mergeMessages)
+	const isSyncing = useChatSyncStore((state) => state.syncing[chat.id] ?? false)
+	const setSyncing = useChatSyncStore((state) => state.setSyncing)
 
 	const { toMessage, getContactTitle } = useChatSyncHelpers()
 
@@ -74,16 +77,21 @@ export const useChatSync = (chat: Chat, credentials: GreenApiCredentials): void 
 			return
 		}
 		syncedChats.add(chat.id)
+		setSyncing(chat.id, true)
 
 		try {
 			await loadHistory(await loadContact())
 		} catch (error) {
 			console.warn('Не удалось загрузить историю чата', error)
 			syncedChats.delete(chat.id)
+		} finally {
+			setSyncing(chat.id, false)
 		}
-	}, [chat.id, loadContact, loadHistory])
+	}, [chat.id, setSyncing, loadContact, loadHistory])
 
 	useEffect(() => {
 		void syncChat()
 	}, [syncChat])
+
+	return isSyncing
 }
