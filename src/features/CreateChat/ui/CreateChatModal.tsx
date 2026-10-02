@@ -9,11 +9,10 @@ import { AppRoute } from '@shared/config'
 import { Namespace } from '@shared/i18n'
 import { DEFAULT_COUNTRY, PhoneField } from '@shared/ui'
 
-import type { CreateChatFormValues } from '../model/types'
+import type { CreateChatFormValues, CreateChatModalProps } from '../model/types'
 import { useCreateChatHelpers } from '../model/useCreateChatHelpers'
 
 import styles from './CreateChatModal.module.scss'
-import type { CreateChatModalProps } from './types'
 
 const MODAL_WIDTH = 420
 const INITIAL_VALUES: CreateChatFormValues = { phone: { country: DEFAULT_COUNTRY, number: '' } }

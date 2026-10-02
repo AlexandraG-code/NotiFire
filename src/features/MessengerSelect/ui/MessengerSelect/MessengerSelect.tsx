@@ -1,11 +1,12 @@
-import { Segmented } from 'antd'
+import { Flex, Segmented } from 'antd'
 import { useTranslation } from 'react-i18next'
 
 import { Skin } from '@shared/theme'
 
-import { useSkinStore } from '../model/useSkinStore'
+import { useSkinStore } from '../../model/useSkinStore'
+import { MaxLogo } from '../MaxLogo/MaxLogo'
+import { TelegramLogo } from '../TelegramLogo/TelegramLogo'
 
-import { MaxLogo, TelegramLogo } from './MessengerLogos'
 import styles from './MessengerSelect.module.scss'
 
 /**
@@ -40,9 +41,9 @@ export const MessengerSelect = () => {
 	]
 
 	return (
-		<div className={styles.root}>
+		<Flex vertical className={styles.root}>
 			<Segmented block options={options} value={skin} onChange={setSkin} aria-label={t('messenger.label')} />
 			<p className={styles.hint}>{t('messenger.hint')}</p>
-		</div>
+		</Flex>
 	)
 }

@@ -12,7 +12,8 @@ import { useMessageStore } from '@entities/Message'
 
 import { Namespace } from '@shared/i18n'
 
-import { ChatListItem } from './ChatListItem'
+import { ChatListItem } from '../ChatListItem/ChatListItem'
+
 import styles from './ChatSidebar.module.scss'
 import type { ChatSidebarProps } from './types'
 

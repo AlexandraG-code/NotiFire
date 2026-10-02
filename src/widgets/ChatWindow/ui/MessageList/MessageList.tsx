@@ -8,8 +8,8 @@ import type { Message } from '@entities/Message'
 import { Namespace } from '@shared/i18n'
 import { formatDay } from '@shared/lib'
 
-import { getBubblePosition } from '../lib/getBubblePosition'
-import { groupMessagesByDay } from '../lib/groupMessagesByDay'
+import { getBubblePosition } from '../../lib/getBubblePosition'
+import { groupMessagesByDay } from '../../lib/groupMessagesByDay'
 
 import styles from './MessageList.module.scss'
 import type { MessageListProps } from './types'

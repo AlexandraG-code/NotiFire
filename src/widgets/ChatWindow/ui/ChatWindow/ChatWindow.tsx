@@ -13,8 +13,9 @@ import { AppRoute } from '@shared/config'
 import { Namespace } from '@shared/i18n'
 import { ChatBackground } from '@shared/ui'
 
+import { MessageList } from '../MessageList/MessageList'
+
 import styles from './ChatWindow.module.scss'
-import { MessageList } from './MessageList'
 import type { ChatWindowProps } from './types'
 
 const HEADER_AVATAR_SIZE = 40
