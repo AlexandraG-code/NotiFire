@@ -1,0 +1,23 @@
+@use '@shared/styles' as *;
+
+.root {
+	display: flex;
+	flex-direction: column;
+	gap: rem(8);
+	margin-bottom: rem(16);
+}
+
+.option {
+	display: inline-flex;
+	align-items: center;
+	gap: rem(8);
+}
+
+.hint {
+	margin: 0;
+	padding: rem(8) rem(12);
+	border-radius: rem(8);
+	background: var(--color-bg-secondary);
+	color: var(--color-text-secondary);
+	font-size: rem(13);
+}

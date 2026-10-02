@@ -1,6 +1,6 @@
 export { getAntdTheme } from './antdTheme'
 export { applyThemeVars } from './cssVars'
-export { ThemeMode } from './enums'
+export { Skin, ThemeMode } from './enums'
 export { runThemeTransition } from './themeTransition'
 export { themeTokens } from './themes'
 export type { ThemeTokens, ThemeTransitionOrigin } from './types'

@@ -8,16 +8,17 @@ import {
 	MODAL_BORDER_RADIUS,
 	MODAL_TITLE_FONT_SIZE
 } from './constants'
-import { ThemeMode } from './enums'
+import { type Skin, ThemeMode } from './enums'
 import { themeTokens } from './themes'
 
 /**
  * Конфиг antd для режима темы: токены темы маппятся на токены antd поверх базового алгоритма.
+ * @param {Skin} skin - Оформление (мессенджер)
  * @param {ThemeMode} mode - Светлая или тёмная тема
  * @returns {ThemeConfig} Конфиг для ConfigProvider
  */
-export const getAntdTheme = (mode: ThemeMode): ThemeConfig => {
-	const tokens = themeTokens[mode]
+export const getAntdTheme = (skin: Skin, mode: ThemeMode): ThemeConfig => {
+	const tokens = themeTokens[skin][mode]
 
 	return {
 		algorithm: mode === ThemeMode.Dark ? theme.darkAlgorithm : theme.defaultAlgorithm,

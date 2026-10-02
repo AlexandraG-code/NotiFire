@@ -1,9 +1,12 @@
-import { darkTokens } from './darkTokens'
-import { ThemeMode } from './enums'
-import { lightTokens } from './lightTokens'
+import { Skin, ThemeMode } from './enums'
+import { maxDarkTokens } from './maxDarkTokens'
+import { maxLightTokens } from './maxLightTokens'
+import { telegramDarkTokens } from './telegramDarkTokens'
+import { telegramLightTokens } from './telegramLightTokens'
 import type { ThemeTokens } from './types'
 
-export const themeTokens: Record<ThemeMode, ThemeTokens> = {
-	[ThemeMode.Light]: lightTokens,
-	[ThemeMode.Dark]: darkTokens
+/** Наборы токенов по оформлению и режиму: новый цвет добавляется во все четыре набора. */
+export const themeTokens: Record<Skin, Record<ThemeMode, ThemeTokens>> = {
+	[Skin.Max]: { [ThemeMode.Light]: maxLightTokens, [ThemeMode.Dark]: maxDarkTokens },
+	[Skin.Telegram]: { [ThemeMode.Light]: telegramLightTokens, [ThemeMode.Dark]: telegramDarkTokens }
 }

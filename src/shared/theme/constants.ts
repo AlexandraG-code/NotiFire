@@ -12,3 +12,4 @@ export const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)'
 
 export const CSS_VAR_PREFIX = '--color-'
 export const THEME_ATTRIBUTE = 'data-theme'
+export const SKIN_ATTRIBUTE = 'data-skin'

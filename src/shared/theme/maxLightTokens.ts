@@ -1,6 +1,6 @@
 import type { ThemeTokens } from './types'
 
-export const lightTokens: ThemeTokens = {
+export const maxLightTokens: ThemeTokens = {
 	bgSurface: '#edeef2',
 	bgPrimary: '#ffffff',
 	bgSecondary: '#f5f7fa',

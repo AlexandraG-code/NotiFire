@@ -17,5 +17,11 @@
 	"phoneField": {
 		"country": "Country",
 		"number": "Phone number"
+	},
+	"messenger": {
+		"label": "Messenger",
+		"max": "MAX",
+		"telegram": "Telegram",
+		"hint": "The app's look depends on the selected messenger."
 	}
 }

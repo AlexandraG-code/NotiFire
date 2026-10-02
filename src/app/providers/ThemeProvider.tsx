@@ -6,6 +6,7 @@ import enUS from 'antd/locale/en_US'
 import ruRU from 'antd/locale/ru_RU'
 import { useTranslation } from 'react-i18next'
 
+import { useSkinStore } from '@features/MessengerSelect'
 import { useThemeStore } from '@features/ThemeSwitcher'
 
 import { Language } from '@shared/i18n'
@@ -26,12 +27,13 @@ const ANTD_LOCALES: Record<string, Locale> = {
  */
 export const ThemeProvider = ({ children }: PropsWithChildren) => {
 	const mode = useThemeStore((state) => state.mode)
+	const skin = useSkinStore((state) => state.skin)
 
 	const { i18n } = useTranslation()
 
-	const antdTheme = useMemo(() => getAntdTheme(mode), [mode])
+	const antdTheme = useMemo(() => getAntdTheme(skin, mode), [skin, mode])
 
-	useLayoutEffect(() => applyThemeVars(mode), [mode])
+	useLayoutEffect(() => applyThemeVars(skin, mode), [skin, mode])
 
 	return (
 		<ConfigProvider theme={antdTheme} locale={ANTD_LOCALES[i18n.language]}>

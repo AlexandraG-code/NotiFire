@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next'
 
 import { AuthForm } from '@features/Auth'
 import { LanguageSwitcher } from '@features/LanguageSwitcher'
+import { MessengerSelect } from '@features/MessengerSelect'
 import { ThemeSwitcher } from '@features/ThemeSwitcher'
 
 import { Namespace } from '@shared/i18n'
@@ -25,6 +26,7 @@ export const AuthPage = () => {
 				</>
 			}
 		>
+			<MessengerSelect />
 			<AuthForm />
 		</CenteredCardLayout>
 	)
