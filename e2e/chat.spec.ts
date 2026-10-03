@@ -45,6 +45,16 @@ test.describe('чат', () => {
 		expect(calls).toContain('sendMessage')
 	})
 
+	test('фон чата с узором: файл узора загружается', async ({ page }) => {
+		const pattern = page.waitForResponse((response) => /chat-pattern.*\.svg$/.test(response.url()))
+		await login(page)
+
+		// сервер на любой неизвестный адрес отвечает страницей index.html, поэтому проверяем и тип файла
+		const response = await pattern
+		expect(response.status()).toBe(200)
+		expect(response.headers()['content-type']).toContain('image/svg')
+	})
+
 	test('аватар в списке чатов крупнее, чем в шапке диалога', async ({ page }) => {
 		await login(page)
 		await page.getByRole('button', { name: 'Новый чат' }).click()
