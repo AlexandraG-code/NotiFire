@@ -39,17 +39,29 @@ export const useChatStore = create<ChatState & ChatActions>()(
 				set((state) => ({ chats: [chat, ...state.chats] }))
 				return chat
 			},
-			addAlias: (id, apiChatId) =>
+			addAlias: (id, apiChatId) => {
 				set((state) => ({
-					chats: state.chats.map((chat) =>
-						chat.id === id && !chat.aliases.includes(apiChatId)
-							? { ...chat, aliases: [...chat.aliases, apiChatId] }
-							: chat
-					)
-				})),
-			updateChat: (id, patch) =>
-				set((state) => ({ chats: state.chats.map((chat) => (chat.id === id ? { ...chat, ...patch } : chat)) })),
-			removeChat: (id) => set((state) => ({ chats: state.chats.filter((chat) => chat.id !== id) })),
+					chats: state.chats.map((chat) => {
+						if (chat.id !== id || chat.aliases.includes(apiChatId)) {
+							return chat
+						}
+						return { ...chat, aliases: [...chat.aliases, apiChatId] }
+					})
+				}))
+			},
+			updateChat: (id, patch) => {
+				set((state) => ({
+					chats: state.chats.map((chat) => {
+						if (chat.id !== id) {
+							return chat
+						}
+						return { ...chat, ...patch }
+					})
+				}))
+			},
+			removeChat: (id) => {
+				set((state) => ({ chats: state.chats.filter((chat) => chat.id !== id) }))
+			},
 			reset: () => set({ chats: [] })
 		}),
 		{
