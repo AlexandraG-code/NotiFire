@@ -1,3 +1,8 @@
 @use '@shared/styles' as *;
 
 $pill-padding: rem(6); // внутренний отступ плавающего поля
+$send-button-size: rem(50); // диаметр кнопки отправки (size="large" у antd)
+$input-line-height: 1.5; // высота строки текста в поле
+
+// Отступ сверху и снизу, при котором однострочный текст стоит по центру кнопки отправки
+$input-padding-y: calc((#{$send-button-size} - #{$font-text} * #{$input-line-height}) / 2);

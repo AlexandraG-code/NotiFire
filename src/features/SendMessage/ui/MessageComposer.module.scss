@@ -18,7 +18,8 @@
 
 .input {
 	flex: 1;
-	padding: $pill-padding 0;
+	padding: $input-padding-y 0;
+	line-height: $input-line-height;
 	border: none;
 	background: transparent;
 	box-shadow: none;

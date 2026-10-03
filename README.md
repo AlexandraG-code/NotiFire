@@ -21,6 +21,21 @@
 - Адаптивная вёрстка: работает на десктопе и на телефоне.
 - Локализация на русский и английский языки, язык выбирается по браузеру.
 
+## Технологии
+
+| Область       | Что используется                                                                                                                               |
+| ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| Основа        | React 19, TypeScript, Vite                                                                                                                     |
+| Интерфейс     | Ant Design 6 (компоненты и токены темы), SCSS Modules, анимации на Motion                                                                      |
+| Состояние     | Zustand (сторы, сохранение в `sessionStorage` и `localStorage`)                                                                                |
+| Маршрутизация | React Router 7 (хэш-маршруты, `loader` для защиты страниц)                                                                                     |
+| Запросы       | Axios, GREEN-API: `sendMessage`, `receiveNotification`, `deleteNotification`, `getContactInfo`, `getChatHistory`, `getSettings`, `setSettings` |
+| Локализация   | i18next, react-i18next, определение языка по браузеру, переводы грузятся по страницам                                                          |
+| Телефоны      | libphonenumber-js (страны, проверка и разбор номера)                                                                                           |
+| Тесты         | Vitest и Testing Library (юнит и компонентные), Playwright (e2e)                                                                               |
+| Качество кода | ESLint, Prettier, архитектура Feature-Sliced Design                                                                                            |
+| Выкладка      | GitHub Actions, GitHub Pages                                                                                                                   |
+
 ## Скриншоты
 
 ### Страница входа
