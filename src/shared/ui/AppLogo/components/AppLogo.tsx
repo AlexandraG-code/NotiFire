@@ -1,4 +1,4 @@
-import { AppIcon } from '../AppIcon/AppIcon'
+import { AppIcon } from '../../AppIcon'
 
 import styles from './AppLogo.module.scss'
 

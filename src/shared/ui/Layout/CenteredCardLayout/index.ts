@@ -1,1 +1,1 @@
-export { CenteredCardLayout } from './CenteredCardLayout'
+export { CenteredCardLayout } from './components/CenteredCardLayout'

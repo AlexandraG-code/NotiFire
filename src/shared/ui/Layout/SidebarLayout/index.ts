@@ -1,1 +1,1 @@
-export { SidebarLayout } from './SidebarLayout'
+export { SidebarLayout } from './components/SidebarLayout'

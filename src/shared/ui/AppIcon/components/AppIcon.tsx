@@ -1,10 +1,8 @@
-import styles from './AppIcon.module.scss'
-import baseSrc from './assets/icon-base.png'
-import flameSrc from './assets/icon-flame.png'
+import baseSrc from '../assets/icon-base.png'
+import flameSrc from '../assets/icon-flame.png'
+import { FLAME, ICON_SIZE } from '../lib/constants'
 
-/** Положение и размер огня на иконке в координатах 512 × 512 (вырезан из исходного рисунка). */
-const FLAME = { x: 294, y: 68, width: 121, height: 289 }
-const ICON_SIZE = 512
+import styles from './AppIcon.module.scss'
 
 /**
  * Иконка NotiFire: исходный рисунок, на котором огонь вырезан в отдельный слой и колышется

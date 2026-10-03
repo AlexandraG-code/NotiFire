@@ -4,11 +4,11 @@ import { Input, Select } from 'antd'
 import type { CountryCode } from 'libphonenumber-js'
 import { useTranslation } from 'react-i18next'
 
-import styles from './PhoneField.module.scss'
-import { DEFAULT_COUNTRY, getCountryList } from './countries'
-import type { PhoneFieldProps, PhoneFieldValue } from './types'
+import { EMPTY_VALUE } from '../lib/constants'
+import { getCountryList } from '../lib/countries'
+import type { PhoneFieldProps } from '../lib/types'
 
-const EMPTY_VALUE: PhoneFieldValue = { country: DEFAULT_COUNTRY, number: '' }
+import styles from './PhoneField.module.scss'
 
 /**
  * Поле номера из двух частей: страна (флаг и код) и остальные цифры. Управляемый компонент:

@@ -1,5 +1,6 @@
+import type { SidebarLayoutProps } from '../lib/types'
+
 import styles from './SidebarLayout.module.scss'
-import type { SidebarLayoutProps } from './types'
 
 /**
  * Раскладка из двух панелей: боковая слева и содержимое справа. В узком окне показывается что-то одно:

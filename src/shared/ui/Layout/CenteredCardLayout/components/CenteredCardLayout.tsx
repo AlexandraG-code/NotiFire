@@ -1,7 +1,8 @@
 import { Card, Flex, Typography } from 'antd'
 
+import type { CenteredCardLayoutProps } from '../lib/types'
+
 import styles from './CenteredCardLayout.module.scss'
-import type { CenteredCardLayoutProps } from './types'
 
 /**
  * Раскладка страницы: карточка по центру экрана с заголовком, подзаголовком и содержимым.

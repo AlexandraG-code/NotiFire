@@ -1,11 +1,11 @@
 import { AnimatePresence, MotionConfig, motion } from 'motion/react'
 
-import { AppIcon } from '../AppIcon/AppIcon'
-import { SplashName } from '../SplashName/SplashName'
+import { AppIcon } from '../../AppIcon'
+import { SplashName } from '../../SplashName'
+import { BRAND_NAME, FADE_SECONDS, ICON_FROM_SCALE, ICON_SECONDS } from '../lib/constants'
+import type { BrandSplashProps } from '../lib/types'
 
 import styles from './BrandSplash.module.scss'
-import { BRAND_NAME, FADE_SECONDS, ICON_FROM_SCALE, ICON_SECONDS } from './constants'
-import type { BrandSplashProps } from './types'
 
 /**
  * Заставка на весь экран: сначала по центру появляется иконка, затем справа по буквам выезжает название,

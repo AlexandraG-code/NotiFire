@@ -1,6 +1,5 @@
 import { motion } from 'motion/react'
 
-import styles from './SplashName.module.scss'
 import {
 	LETTER_SECONDS,
 	LETTER_SHIFT_PX,
@@ -8,8 +7,10 @@ import {
 	NAME_DELAY_SECONDS,
 	NAME_OPEN_SECONDS,
 	NAME_PADDING_PX
-} from './constants'
-import type { SplashNameProps } from './types'
+} from '../lib/constants'
+import type { SplashNameProps } from '../lib/types'
+
+import styles from './SplashName.module.scss'
 
 /**
  * Надпись заставки: раскрывается вправо по ширине, а буквы по очереди выезжают слева.

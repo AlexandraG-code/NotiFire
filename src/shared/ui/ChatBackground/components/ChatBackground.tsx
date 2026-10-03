@@ -1,5 +1,6 @@
+import type { ChatBackgroundProps } from '../lib/types'
+
 import styles from './ChatBackground.module.scss'
-import type { ChatBackgroundProps } from './types'
 
 /**
  * Компонент для отрисовки фона области чата: градиент темы с узором поверх, занимает всё свободное место по ширине.
