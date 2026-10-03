@@ -1,4 +1,5 @@
 export { getErrorMessage } from './getErrorMessage'
 export { runAsyncAction } from './runAsyncAction'
+export type { AsyncActionResult } from './types'
 export { useNotificationStore } from './useNotificationStore'
 export type { ErrorReport } from './types'

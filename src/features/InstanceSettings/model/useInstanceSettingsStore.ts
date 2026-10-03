@@ -8,7 +8,7 @@ import { InstanceSettingsService } from '../api/instanceSettings.service'
 
 import { REQUIRED_SETTINGS } from './constants'
 import { NotificationsStatus } from './enums'
-import { hasRequiredSettings } from './instanceSettings.helpers'
+import { resolveNotificationsStatus } from './instanceSettings.helpers'
 
 interface InstanceSettingsState {
 	status: NotificationsStatus
@@ -39,34 +39,34 @@ export const useInstanceSettingsStore = create<InstanceSettingsState & InstanceS
 		}
 
 		set({ isChecking: true })
-		const isChecked = await runAsyncAction(
-			async () => {
-				const settings = await InstanceSettingsService.getSettings(credentials)
-				if (hasRequiredSettings(settings)) {
-					set({ status: NotificationsStatus.Enabled })
-				} else if (get().status !== NotificationsStatus.Applying) {
-					set({ status: NotificationsStatus.Disabled })
-				}
-			},
+		const { isSuccess, data: settings } = await runAsyncAction(
+			() => InstanceSettingsService.getSettings(credentials),
 			// проверка — подсказка, а не действие пользователя: при сбое (в том числе 429 от лимитов API) плашки просто нет
 			{ errorTitle: i18n.t('notifications.checkFailed', { ns: Namespace.Chat }), silent: true }
 		)
+
+		if (isSuccess) {
+			set({ status: resolveNotificationsStatus(settings, get().status) })
+		}
 		set({ isChecking: false })
-		return isChecked
+		return isSuccess
 	},
 	enable: async (credentials) => {
 		set({ isSaving: true })
-		const isSaved = await runAsyncAction(
+		const { isSuccess } = await runAsyncAction(
 			async () => {
 				const { saveSettings } = await InstanceSettingsService.setSettings(credentials, REQUIRED_SETTINGS)
 				if (!saveSettings) {
 					throw new Error(i18n.t('notifications.notSaved', { ns: Namespace.Chat }))
 				}
-				set({ status: NotificationsStatus.Applying })
 			},
 			{ errorTitle: i18n.t('notifications.enableFailed', { ns: Namespace.Chat }) }
 		)
+
+		if (isSuccess) {
+			set({ status: NotificationsStatus.Applying })
+		}
 		set({ isSaving: false })
-		return isSaved
+		return isSuccess
 	}
 }))

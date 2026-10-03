@@ -29,3 +29,10 @@ export interface AsyncActionOptions {
 	describeError?: ErrorDescriber
 	silent?: boolean
 }
+
+/**
+ * Результат runAsyncAction: действие выполнилось (тогда есть то, что оно вернуло) или упало.
+ * @property {boolean} isSuccess - Выполнилось ли действие
+ * @property {T} [data] - Результат действия; есть только при isSuccess
+ */
+export type AsyncActionResult<T> = { isSuccess: true; data: T } | { isSuccess: false; data?: undefined }

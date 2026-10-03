@@ -37,8 +37,8 @@ export const useAuthStore = create<AuthState & AuthActions>()(
 	persist(
 		(set) => ({
 			...initial,
-			login: (credentials) =>
-				runAsyncAction(
+			login: async (credentials) => {
+				const { isSuccess } = await runAsyncAction(
 					async () => {
 						const { stateInstance } = await AuthService.getStateInstance(credentials)
 						if (stateInstance !== StateInstance.Authorized) {
@@ -46,15 +46,19 @@ export const useAuthStore = create<AuthState & AuthActions>()(
 								i18n.t('errors.notAuthorized', { ns: Namespace.Auth, state: stateInstance })
 							)
 						}
-
-						claimChatData(credentials.idInstance)
-						set({ isAuthorized: true, credentials })
 					},
 					{
 						errorTitle: i18n.t('errors.loginFailed', { ns: Namespace.Auth }),
 						describeError: describeLoginError
 					}
-				),
+				)
+
+				if (isSuccess) {
+					claimChatData(credentials.idInstance)
+					set({ isAuthorized: true, credentials })
+				}
+				return isSuccess
+			},
 			logout: () => {
 				wipeChatData()
 				set(initial)

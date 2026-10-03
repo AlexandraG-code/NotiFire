@@ -1,25 +1,25 @@
 import { getErrorMessage } from './getErrorMessage'
-import type { AsyncActionOptions } from './types'
+import type { AsyncActionOptions, AsyncActionResult } from './types'
 import { useNotificationStore } from './useNotificationStore'
 
 /**
  * Выполняет асинхронное действие стора и сам ловит ошибки: вызывающему не нужен try/catch.
- * При ошибке сообщает о ней стору уведомлений (или только в консоль, если задано `silent`).
- * @param {Function} action - Асинхронное действие
+ * Возвращает то, что вернуло действие, а при ошибке сообщает о ней стору уведомлений
+ * (или только в консоль, если задано `silent`).
+ * @param {Function} action - Асинхронное действие, например запрос к API вместе с проверкой ответа
  * @param {AsyncActionOptions} options - Заголовок уведомления и, при необходимости, свой текст ошибки
- * @returns {Promise<boolean>} true, если действие выполнилось, и false, если упало
+ * @returns {Promise<AsyncActionResult<T>>} `{ isSuccess: true, data }` с результатом действия или `{ isSuccess: false }`
  */
-export const runAsyncAction = async (
-	action: () => Promise<void>,
+export const runAsyncAction = async <T>(
+	action: () => Promise<T>,
 	{ errorTitle, describeError = getErrorMessage, silent = false }: AsyncActionOptions
-): Promise<boolean> => {
+): Promise<AsyncActionResult<T>> => {
 	try {
-		await action()
-		return true
+		return { isSuccess: true, data: await action() }
 	} catch (error) {
 		if (silent) {
 			console.warn(errorTitle, error)
-			return false
+			return { isSuccess: false }
 		}
 
 		useNotificationStore.getState().notifyError({
@@ -27,6 +27,6 @@ export const runAsyncAction = async (
 			description: describeError(error),
 			cause: error
 		})
-		return false
+		return { isSuccess: false }
 	}
 }
