@@ -1,20 +1,21 @@
 import { Avatar } from 'antd'
 
-import styles from './ChatAvatar.module.scss'
-import type { ChatAvatarProps } from './types'
+import { AvatarSize } from '../model/enums'
+import type { ChatAvatarProps } from '../model/types'
 
-const DEFAULT_SIZE = 56
+import styles from './ChatAvatar.module.scss'
+
 const INITIAL_SKIP = /[+\s]/g
 
 /**
- * Круглый аватар чата с первым символом названия.
+ * Круглый аватар чата с первым символом названия. Диаметр задаётся размером из общих SCSS-переменных.
  * @param {string} title - Название чата, из него берётся первая буква
  * @param {string} [src] - Ссылка на фото собеседника; без неё или при ошибке загрузки показывается буква
- * @param {number} [size=56] - Диаметр аватара в пикселях
+ * @param {AvatarSize} [size=AvatarSize.Large] - Размер аватара
  * @returns {JSX.Element} Аватар
  */
-export const ChatAvatar = ({ title, src, size = DEFAULT_SIZE }: ChatAvatarProps) => (
-	<Avatar className={styles.avatar} size={size} src={src || undefined}>
+export const ChatAvatar = ({ title, src, size = AvatarSize.Large }: ChatAvatarProps) => (
+	<Avatar className={styles.avatar} data-size={size} src={src || undefined}>
 		{title.replace(INITIAL_SKIP, '').charAt(0).toUpperCase()}
 	</Avatar>
 )

@@ -1,4 +1,5 @@
 export { ChatAvatar } from './ui/ChatAvatar'
+export { AvatarSize } from './model/enums'
 export { ChatService } from './api/chat.service'
 export { findChatByApiId } from './lib/findChatByApiId'
 export { useChatStore } from './model/useChatStore'

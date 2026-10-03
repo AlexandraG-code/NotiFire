@@ -45,6 +45,16 @@ test.describe('чат', () => {
 		expect(calls).toContain('sendMessage')
 	})
 
+	test('аватар в списке чатов крупнее, чем в шапке диалога', async ({ page }) => {
+		await login(page)
+		await page.getByRole('button', { name: 'Новый чат' }).click()
+		await page.getByLabel('Номер телефона').fill('916 123-45-67')
+		await page.getByRole('button', { name: 'Начать чат' }).click()
+
+		await expect(page.getByRole('link', { name: /Анна|\+7916/ }).locator('.ant-avatar')).toHaveCSS('width', '56px')
+		await expect(page.locator('header .ant-avatar')).toHaveCSS('width', '40px')
+	})
+
 	test('после обновления страницы чат остаётся в списке', async ({ page }) => {
 		await login(page)
 		await page.getByRole('button', { name: 'Новый чат' }).click()

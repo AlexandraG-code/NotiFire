@@ -27,6 +27,10 @@ $control-height: rem(52);
 $header-height: rem(64);
 $sidebar-width: rem(400);
 $centered-card-width: rem(360);
+
+// Диаметр аватара: в списке чатов и в шапке диалога
+$avatar-size-lg: rem(56);
+$avatar-size-sm: rem(40);
 $content-max-width: rem(720);
 
 // Ширина окна, ниже которой показывается что-то одно: список чатов или диалог (в px, для медиазапроса)

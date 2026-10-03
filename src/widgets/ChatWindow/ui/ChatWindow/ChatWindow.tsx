@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import { useChatSync } from '@features/ChatSync'
 import { MessageComposer, useSendMessage } from '@features/SendMessage'
 
-import { ChatAvatar } from '@entities/Chat'
+import { AvatarSize, ChatAvatar } from '@entities/Chat'
 
 import { AppRoute } from '@shared/config'
 import { Namespace } from '@shared/i18n'
@@ -17,8 +17,6 @@ import { MessageList } from '../MessageList/MessageList'
 
 import styles from './ChatWindow.module.scss'
 import type { ChatWindowProps } from './types'
-
-const HEADER_AVATAR_SIZE = 40
 
 /**
  * Окно диалога: шапка с собеседником (пока грузится история, в ней крутится спиннер), лента сообщений и поле ввода. В узком окне в шапке появляется стрелка назад к списку чатов.
@@ -44,7 +42,7 @@ export const ChatWindow = ({ chat, credentials }: ChatWindowProps) => {
 					icon={<ArrowLeftOutlined />}
 					onClick={() => navigate(AppRoute.Root)}
 				/>
-				<ChatAvatar title={chat.title} src={chat.avatarUrl} size={HEADER_AVATAR_SIZE} />
+				<ChatAvatar title={chat.title} src={chat.avatarUrl} size={AvatarSize.Small} />
 				<h2 className={styles.title}>{chat.title}</h2>
 				{isSyncing && <Spin className={styles.spinner} size="small" aria-label={t('window.loadingHistory')} />}
 			</header>
